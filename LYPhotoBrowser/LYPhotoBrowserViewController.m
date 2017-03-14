@@ -66,6 +66,15 @@
     
     // 获取根控制器
     UIViewController *rootVc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    // 校验被modal出来的
+    if (!rootVc.view.window) {
+        rootVc = rootVc.presentedViewController;
+        if (!rootVc) {
+            return;
+        }
+    }
+    
     // modal 浏览器
     [rootVc presentViewController:self animated:YES completion:^{
         if (self.imagePaths.count < 3) {
