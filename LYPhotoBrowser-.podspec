@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "LYPhotoBrowser"
+  s.name         = "LYPhotoBrowser-"
   s.version      = "0.0.1"
   s.summary      = "an ios photo browser tool"
 
