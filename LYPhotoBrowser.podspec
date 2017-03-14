@@ -25,10 +25,10 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-a photo browser tool
+a photo browser tool , use this you can scroll it infinitly
                    DESC
 
-  s.homepage     = "https://github.com/install-b/LYPhotoBrowser.git"
+  s.homepage     = "https://github.com/install-b/LYPhotoBrowser-.git"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -80,7 +80,7 @@ a photo browser tool
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/install-b/LYPhotoBrowser.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/install-b/LYPhotoBrowser-.git", :tag => "0.0.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -94,7 +94,7 @@ a photo browser tool
   s.source_files  = "LYPhotoBrowser/*.{h,m}"
   #s.exclude_files = "Classes/Exclude"
 
-  # s.public_header_files = "Classes/**/*.h"
+  s.public_header_files = "LYPhotoBrowser/*.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
