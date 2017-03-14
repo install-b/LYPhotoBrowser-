@@ -9,7 +9,7 @@
 #import "LYPhotoBrowserViewController.h"
 #import "LYPhotoBrowserView.h"
 #import "SGPictureTool.h"
-#import <SDWebImage/SDImageCache.h>
+#import "SDWebImage/SDImageCache.h"
 #import "LYPhotoAminator.h"
 
 @interface LYPhotoBrowserViewController () <LYPhotoAminatorDelegate,LYPhotoBrowserViewDelegate>

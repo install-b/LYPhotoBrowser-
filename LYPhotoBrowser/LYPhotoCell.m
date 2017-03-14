@@ -7,9 +7,9 @@
 //
 
 #import "LYPhotoCell.h"
-#import <Masonry.h>
-#import <UIImageView+WebCache.h>
-#import <DACircularProgressView.h>
+#import "Masonry.h"
+#import "UIImageView+WebCache.h"
+#import "DACircularProgressView.h"
 #import "UIImage+ScreenSize.h"
 
 @interface LYPhotoCell ()
