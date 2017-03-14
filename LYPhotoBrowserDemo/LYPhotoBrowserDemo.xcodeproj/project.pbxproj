@@ -1,0 +1,441 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5FF794A81E741791001F5522 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF794A71E741791001F5522 /* main.m */; };
+		5FF794AB1E741791001F5522 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF794AA1E741791001F5522 /* AppDelegate.m */; };
+		5FF794AE1E741791001F5522 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF794AD1E741791001F5522 /* ViewController.m */; };
+		5FF794B11E741791001F5522 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FF794AF1E741791001F5522 /* Main.storyboard */; };
+		5FF794B31E741791001F5522 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FF794B21E741791001F5522 /* Assets.xcassets */; };
+		5FF794B61E741791001F5522 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FF794B41E741791001F5522 /* LaunchScreen.storyboard */; };
+		5FF794CC1E7417A4001F5522 /* LYPhotoAminator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF794BF1E7417A4001F5522 /* LYPhotoAminator.m */; };
+		5FF794CD1E7417A4001F5522 /* LYPhotoBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF794C11E7417A4001F5522 /* LYPhotoBrowserView.m */; };
+		5FF794CE1E7417A4001F5522 /* LYPhotoBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF794C31E7417A4001F5522 /* LYPhotoBrowserViewController.m */; };
+		5FF794CF1E7417A4001F5522 /* LYPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF794C51E7417A4001F5522 /* LYPhotoCell.m */; };
+		5FF794D11E7417A4001F5522 /* SGPictureTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF794C91E7417A4001F5522 /* SGPictureTool.m */; };
+		5FF794D21E7417A4001F5522 /* UIImage+ScreenSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF794CB1E7417A4001F5522 /* UIImage+ScreenSize.m */; };
+		917807688B170D16096EC5D3 /* libPods-LYPhotoBrowserDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6625701942B0F31A642E173 /* libPods-LYPhotoBrowserDemo.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3B648C2C4841EA8AA8AE29BF /* Pods-LYPhotoBrowserDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPhotoBrowserDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LYPhotoBrowserDemo/Pods-LYPhotoBrowserDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		5FF794A31E741791001F5522 /* LYPhotoBrowserDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYPhotoBrowserDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FF794A71E741791001F5522 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5FF794A91E741791001F5522 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		5FF794AA1E741791001F5522 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		5FF794AC1E741791001F5522 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		5FF794AD1E741791001F5522 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		5FF794B01E741791001F5522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5FF794B21E741791001F5522 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5FF794B51E741791001F5522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5FF794B71E741791001F5522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5FF794BE1E7417A4001F5522 /* LYPhotoAminator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYPhotoAminator.h; sourceTree = "<group>"; };
+		5FF794BF1E7417A4001F5522 /* LYPhotoAminator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYPhotoAminator.m; sourceTree = "<group>"; };
+		5FF794C01E7417A4001F5522 /* LYPhotoBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYPhotoBrowserView.h; sourceTree = "<group>"; };
+		5FF794C11E7417A4001F5522 /* LYPhotoBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYPhotoBrowserView.m; sourceTree = "<group>"; };
+		5FF794C21E7417A4001F5522 /* LYPhotoBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYPhotoBrowserViewController.h; sourceTree = "<group>"; };
+		5FF794C31E7417A4001F5522 /* LYPhotoBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYPhotoBrowserViewController.m; sourceTree = "<group>"; };
+		5FF794C41E7417A4001F5522 /* LYPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYPhotoCell.h; sourceTree = "<group>"; };
+		5FF794C51E7417A4001F5522 /* LYPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYPhotoCell.m; sourceTree = "<group>"; };
+		5FF794C81E7417A4001F5522 /* SGPictureTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPictureTool.h; sourceTree = "<group>"; };
+		5FF794C91E7417A4001F5522 /* SGPictureTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGPictureTool.m; sourceTree = "<group>"; };
+		5FF794CA1E7417A4001F5522 /* UIImage+ScreenSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ScreenSize.h"; sourceTree = "<group>"; };
+		5FF794CB1E7417A4001F5522 /* UIImage+ScreenSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ScreenSize.m"; sourceTree = "<group>"; };
+		E6625701942B0F31A642E173 /* libPods-LYPhotoBrowserDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LYPhotoBrowserDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5DB9CF05F88BD6A3A8A75F8 /* Pods-LYPhotoBrowserDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPhotoBrowserDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYPhotoBrowserDemo/Pods-LYPhotoBrowserDemo.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5FF794A01E741791001F5522 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				917807688B170D16096EC5D3 /* libPods-LYPhotoBrowserDemo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		34DF1FB6E3B0C4F5F7018093 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E6625701942B0F31A642E173 /* libPods-LYPhotoBrowserDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5FF7949A1E741791001F5522 = {
+			isa = PBXGroup;
+			children = (
+				5FF794A51E741791001F5522 /* LYPhotoBrowserDemo */,
+				5FF794A41E741791001F5522 /* Products */,
+				B8E070B0B225A4E5C24F36E7 /* Pods */,
+				34DF1FB6E3B0C4F5F7018093 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		5FF794A41E741791001F5522 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5FF794A31E741791001F5522 /* LYPhotoBrowserDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5FF794A51E741791001F5522 /* LYPhotoBrowserDemo */ = {
+			isa = PBXGroup;
+			children = (
+				5FF794BD1E7417A4001F5522 /* LYPhotoBrowser */,
+				5FF794A91E741791001F5522 /* AppDelegate.h */,
+				5FF794AA1E741791001F5522 /* AppDelegate.m */,
+				5FF794AC1E741791001F5522 /* ViewController.h */,
+				5FF794AD1E741791001F5522 /* ViewController.m */,
+				5FF794AF1E741791001F5522 /* Main.storyboard */,
+				5FF794B21E741791001F5522 /* Assets.xcassets */,
+				5FF794B41E741791001F5522 /* LaunchScreen.storyboard */,
+				5FF794B71E741791001F5522 /* Info.plist */,
+				5FF794A61E741791001F5522 /* Supporting Files */,
+			);
+			path = LYPhotoBrowserDemo;
+			sourceTree = "<group>";
+		};
+		5FF794A61E741791001F5522 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5FF794A71E741791001F5522 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5FF794BD1E7417A4001F5522 /* LYPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				5FF794BE1E7417A4001F5522 /* LYPhotoAminator.h */,
+				5FF794BF1E7417A4001F5522 /* LYPhotoAminator.m */,
+				5FF794C01E7417A4001F5522 /* LYPhotoBrowserView.h */,
+				5FF794C11E7417A4001F5522 /* LYPhotoBrowserView.m */,
+				5FF794C21E7417A4001F5522 /* LYPhotoBrowserViewController.h */,
+				5FF794C31E7417A4001F5522 /* LYPhotoBrowserViewController.m */,
+				5FF794C41E7417A4001F5522 /* LYPhotoCell.h */,
+				5FF794C51E7417A4001F5522 /* LYPhotoCell.m */,
+				5FF794C81E7417A4001F5522 /* SGPictureTool.h */,
+				5FF794C91E7417A4001F5522 /* SGPictureTool.m */,
+				5FF794CA1E7417A4001F5522 /* UIImage+ScreenSize.h */,
+				5FF794CB1E7417A4001F5522 /* UIImage+ScreenSize.m */,
+			);
+			name = LYPhotoBrowser;
+			path = ../../LYPhotoBrowser;
+			sourceTree = "<group>";
+		};
+		B8E070B0B225A4E5C24F36E7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3B648C2C4841EA8AA8AE29BF /* Pods-LYPhotoBrowserDemo.debug.xcconfig */,
+				F5DB9CF05F88BD6A3A8A75F8 /* Pods-LYPhotoBrowserDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5FF794A21E741791001F5522 /* LYPhotoBrowserDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5FF794BA1E741791001F5522 /* Build configuration list for PBXNativeTarget "LYPhotoBrowserDemo" */;
+			buildPhases = (
+				A4411889FC5CB595482030E4 /* [CP] Check Pods Manifest.lock */,
+				5FF7949F1E741791001F5522 /* Sources */,
+				5FF794A01E741791001F5522 /* Frameworks */,
+				5FF794A11E741791001F5522 /* Resources */,
+				636CB079BA7C33D588345DE4 /* [CP] Embed Pods Frameworks */,
+				89B12A04ECEF79754A1CB562 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LYPhotoBrowserDemo;
+			productName = LYPhotoBrowserDemo;
+			productReference = 5FF794A31E741791001F5522 /* LYPhotoBrowserDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5FF7949B1E741791001F5522 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = HHLY;
+				TargetAttributes = {
+					5FF794A21E741791001F5522 = {
+						CreatedOnToolsVersion = 8.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 5FF7949E1E741791001F5522 /* Build configuration list for PBXProject "LYPhotoBrowserDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5FF7949A1E741791001F5522;
+			productRefGroup = 5FF794A41E741791001F5522 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5FF794A21E741791001F5522 /* LYPhotoBrowserDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5FF794A11E741791001F5522 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FF794B61E741791001F5522 /* LaunchScreen.storyboard in Resources */,
+				5FF794B31E741791001F5522 /* Assets.xcassets in Resources */,
+				5FF794B11E741791001F5522 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		636CB079BA7C33D588345DE4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LYPhotoBrowserDemo/Pods-LYPhotoBrowserDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		89B12A04ECEF79754A1CB562 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LYPhotoBrowserDemo/Pods-LYPhotoBrowserDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4411889FC5CB595482030E4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5FF7949F1E741791001F5522 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FF794AE1E741791001F5522 /* ViewController.m in Sources */,
+				5FF794AB1E741791001F5522 /* AppDelegate.m in Sources */,
+				5FF794CC1E7417A4001F5522 /* LYPhotoAminator.m in Sources */,
+				5FF794A81E741791001F5522 /* main.m in Sources */,
+				5FF794CD1E7417A4001F5522 /* LYPhotoBrowserView.m in Sources */,
+				5FF794D21E7417A4001F5522 /* UIImage+ScreenSize.m in Sources */,
+				5FF794D11E7417A4001F5522 /* SGPictureTool.m in Sources */,
+				5FF794CF1E7417A4001F5522 /* LYPhotoCell.m in Sources */,
+				5FF794CE1E7417A4001F5522 /* LYPhotoBrowserViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5FF794AF1E741791001F5522 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5FF794B01E741791001F5522 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5FF794B41E741791001F5522 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5FF794B51E741791001F5522 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5FF794B81E741791001F5522 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5FF794B91E741791001F5522 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5FF794BB1E741791001F5522 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B648C2C4841EA8AA8AE29BF /* Pods-LYPhotoBrowserDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LYPhotoBrowserDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.13322.LYPhotoBrowserDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5FF794BC1E741791001F5522 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5DB9CF05F88BD6A3A8A75F8 /* Pods-LYPhotoBrowserDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LYPhotoBrowserDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.13322.LYPhotoBrowserDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5FF7949E1E741791001F5522 /* Build configuration list for PBXProject "LYPhotoBrowserDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5FF794B81E741791001F5522 /* Debug */,
+				5FF794B91E741791001F5522 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5FF794BA1E741791001F5522 /* Build configuration list for PBXNativeTarget "LYPhotoBrowserDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5FF794BB1E741791001F5522 /* Debug */,
+				5FF794BC1E741791001F5522 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5FF7949B1E741791001F5522 /* Project object */;
+}

@@ -1,0 +1,1 @@
+../../../SGInfiniteView/SGInfiniteView/SGInfiniteViewCell.h

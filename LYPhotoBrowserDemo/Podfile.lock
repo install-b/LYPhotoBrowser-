@@ -1,0 +1,23 @@
+PODS:
+  - DACircularProgress (2.3.1)
+  - Masonry (1.0.2)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
+  - SGInfiniteView (0.0.6)
+
+DEPENDENCIES:
+  - DACircularProgress
+  - Masonry
+  - SDWebImage
+  - SGInfiniteView
+
+SPEC CHECKSUMS:
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  SGInfiniteView: fe559d98973d7e6de22ed7e795da242a21016ac4
+
+PODFILE CHECKSUM: 636b022bb1830e4182c955f006ddba5a8fe4dd18
+
+COCOAPODS: 1.1.1
