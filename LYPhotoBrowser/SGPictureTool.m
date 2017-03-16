@@ -12,7 +12,7 @@
 @implementation SGPictureTool
 #pragma mark - 接口方法
 + (void)sg_saveAImage:(UIImage *)image withFolferName:(NSString *)folderName error:(void(^)(NSError *error))error {
-    [self saveMedia:image withFolferName:folderName error:error];
+    [self sg_saveMedia:image withFolferName:folderName error:error];
 }
 
 + (void)sg_saveAImage:(UIImage *)image  error:(void(^)(NSError *error))error  {
@@ -32,14 +32,16 @@
 + (void)sg_saveMedia:(id)media withFolferName:(NSString *)folderName error:(void(^)(NSError *error))error {
     
     PHAuthorizationStatus oldAuthory = [PHPhotoLibrary authorizationStatus];
-    @try {
-        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-            switch (status) {
-                case PHAuthorizationStatusAuthorized :
+    
+    if (oldAuthory == PHAuthorizationStatusAuthorized) return [self saveMedia:media withFolferName:folderName error:error];
+    
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        switch (status) {
+            case PHAuthorizationStatusAuthorized :
                 [self saveMedia:media withFolferName:folderName error:error];
                 return ;
                 
-                case PHAuthorizationStatusDenied :
+            case PHAuthorizationStatusDenied :
                 if (oldAuthory == PHAuthorizationStatusNotDetermined) return ;
                 if (error) {
                     NSError *err = [NSError errorWithDomain:NSOSStatusErrorDomain code:1 userInfo:@{@"error" : @"请设置允许访问相册"}];
@@ -47,25 +49,16 @@
                 }
                 return ;
                 
-                case PHAuthorizationStatusRestricted:
+            case PHAuthorizationStatusRestricted:
                 if (error) {
                     NSError *err = [NSError errorWithDomain:NSOSStatusErrorDomain code:1 userInfo:@{@"error" : @"系统无法访问相册"}];
                     error(err);
                 }
                 return ;
-                default:
+            default:
                 break;
-            }
-        }];
-
-    } @catch (NSException *exception) {
-#ifdef DEBUG
-        NSLog(@"%@",exception);
-#endif
-    } @finally {
-        
-    }
-    
+        }
+    }];
 }
 #pragma mark - 保存图片
 /** 用户允许访问相册 */
