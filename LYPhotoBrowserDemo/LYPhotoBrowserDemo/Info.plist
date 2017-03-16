@@ -43,5 +43,10 @@
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>允许访问才能保持图片哦</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>
