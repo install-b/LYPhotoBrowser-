@@ -7,7 +7,7 @@ target 'LYPhotoBrowserDemo' do
 pod 'SGInfiniteView'
 pod 'SDWebImage'
 pod 'Masonry'
-pod 'DACircularProgress'
+#pod 'DACircularProgress'
   # Pods for LYPhotoBrowserDemo
 
 end

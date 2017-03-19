@@ -87,12 +87,13 @@
 // 完成model 动画调用
 - (void)presentingAnimaDidCompleteWithView:(UIView *)animaView {
     
-    [self.photoBrowserView setInitalIndex:_initalIndex compelete:^{
-        [animaView removeFromSuperview];
-    }];
+    [self.photoBrowserView scrollToIndexItem:_initalIndex];
+
+    [self.photoBrowserView setInitalIndex:_initalIndex compelete:nil];
 }
 // 即将modal时候调用
 - (void)presentingAnimaWillPresenting:(UIView *)animaView {
+    self.startImageView = (UIImageView *)animaView;
 }
 
 #pragma mark - LYPhotoBrowserViewDelegate 视图代理
@@ -104,6 +105,15 @@
 - (NSString *)imageURLForPhotoBrowserView:(LYPhotoBrowserView *)photoBrowserView inIndex:(NSInteger)index {
     return self.imagePaths[index];
 }
+
+- (void)didLoadStartImageIndex:(NSInteger)startIndex photoBrowserView:(LYPhotoBrowserView *)photoBrowserView {
+    
+    if (startIndex == _initalIndex && self.startImageView) {
+        [self.startImageView removeFromSuperview];
+        self.startImageView = nil;
+    }
+}
+
 // 保存图片
 - (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView saveImage:(UIImage *)image {
     __weak typeof(self) weakSelf = self;

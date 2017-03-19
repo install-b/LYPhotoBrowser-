@@ -13,7 +13,7 @@
 /** imageView */
 @property (nonatomic,weak) UIImageView *imageView;
 @end
-#define starIndex 2
+#define starIndex 14
 
 @implementation ViewController
 
@@ -25,9 +25,7 @@
     imageView.center = self.view.center;
     imageView.backgroundColor = [UIColor redColor];
     // 设置图片
-    [imageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[starIndex]]  placeholderImage:nil options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        NSLog(@"error -- %@",error);
-    }];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[starIndex]]  placeholderImage:nil options:0 progress:nil completed:nil];
     self.imageView = imageView;
 }
 
@@ -71,7 +69,9 @@
 //             @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1489320830457&di=090a5df4b79f154ccb17289258ecb003&imgtype=0&src=http%3A%2F%2Fr-cc.bstatic.com%2Fimages%2Fhotel%2F840x460%2F473%2F47386232.jpg",
              @"http://img.ivsky.com/img/tupian/co/201611/30/zise_qiezi-005.jpg",
              @"http://img.ivsky.com/img/tupian/co/201612/01/fengshu_he_fengye.jpg",
+             @"http://imgsrc.baidu.com/forum/pic/item/5d8ea144ad345982913052140cf431adcaef8455.jpg",
              @"http://img.ivsky.com/img/tupian/co/201611/29/xinxian_de_shucai-002.jpg",
+             @"http://img.pconline.com.cn/images/upload/upc/tx/wallpaper/1205/31/c0/11820418_1338432325828.jpg",
              @"http://pic4.nipic.com/20091122/2716420_101229059764_2.jpg",
              @"http://b.hiphotos.baidu.com/image/pic/item/14ce36d3d539b6005bf2c2b3eb50352ac65cb7f2.jpg",
              @"http://c.hiphotos.baidu.com/image/pic/item/7aec54e736d12f2ed3528d1f4dc2d5628535687d.jpg",
@@ -83,7 +83,6 @@
              @"http://d.hiphotos.baidu.com/image/pic/item/8435e5dde71190efb5f162decc1b9d16fdfa60ad.jpg",
              @"http://b.hiphotos.baidu.com/image/pic/item/35a85edf8db1cb1390e2cd12df54564e92584b2c.jpg",
              ];
-    
 }
 
 @end

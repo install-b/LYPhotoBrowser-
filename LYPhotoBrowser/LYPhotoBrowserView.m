@@ -11,7 +11,7 @@
 #import "SGInfiniteView/SGInfiniteView.h"
 #import "LYPhotoCell.h"
 
-@interface LYPhotoBrowserView ()<SGInfiniteViewDelegte,SGInfiniteViewDatasource>
+@interface LYPhotoBrowserView ()<SGInfiniteViewDelegte,SGInfiniteViewDatasource,LYPhotoCellDelegate>
 /** 滚动视图 */
 @property(nonatomic,weak) SGInfiniteView *infiniteView;
 /** 索引标签 */
@@ -43,7 +43,9 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
 /** 根据所给的索引值 返回要展示的view（不用设置，自动设置为控件的大小） */
 - (UIView *)viewForInfiniteSlideView:(SGInfiniteView *)infiniteView inIndex:(NSInteger)index {
     LYPhotoCell *cell = (LYPhotoCell *)[infiniteView sg_dequeueReusableCellWithReuseIdentifier:ID]; // 重用cell
-    cell.imagePath =  [self.delegate imageURLForPhotoBrowserView:self inIndex:index];//self.imagePaths[index]; // 传递模型
+    cell.delegate = self;
+    cell.cellIndex = index;
+    cell.imagePath =  [self.delegate imageURLForPhotoBrowserView:self inIndex:index];// 传递模型
     return cell;
 }
 #pragma mark - SGInfiniteViewDelegte
@@ -51,6 +53,14 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
 - (void)viewForInfiniteView:(SGInfiniteView *)infiniteView willShowIndex:(NSInteger)index { // 实时更新索引值
     self.currentIndex = index;
 }
+#pragma mark - LYPhotoCellDelegate
+- (void)photoCell:(LYPhotoCell *)cell didLoadImage:(UIImage *)image {
+    if ([self.delegate respondsToSelector:@selector(didLoadStartImageIndex:photoBrowserView:)]) {
+        NSLog(@"111111111111--%zd",cell.cellIndex);
+        [self.delegate didLoadStartImageIndex:cell.cellIndex photoBrowserView:self];
+    }
+}
+
 #pragma mark - clisk events
 // 保存图片
 - (void)clickSaveButton:(UIButton *)sender{
@@ -75,26 +85,15 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
 - (void)setInitalIndex:(NSUInteger)initalIndex compelete:(void(^)())complete {
     
     [self.infiniteView scrollToIndexItem:initalIndex anima:NO];
-    
-    LYPhotoCell *cell  = (LYPhotoCell *)[self.infiniteView currentVisiableView];
-    
-    if (cell.imageView.image) {
-        self.userInteractionEnabled = YES;
-        !complete ?: complete();
-        return;
-    }
-    self.userInteractionEnabled = NO;
-    __weak typeof(self) weakSelf = self;
-    cell.complete = ^{
-        weakSelf.userInteractionEnabled = YES;
-        !complete ?: complete();
-    };
+    [self.infiniteView sg_reloadData];
+    self.currentIndex = initalIndex;
 }
 #pragma mark - add subviews
 - (void)setUpSubview {
     self.backgroundColor = [UIColor blackColor];
     // 浏览图片视图
     SGInfiniteView *infiniteView = [[SGInfiniteView alloc] init];
+    //[infiniteView setInfinite:NO];
     [self addSubview:infiniteView];
     self.infiniteView = infiniteView;
     infiniteView.dataSource = self;     // 设置数据源

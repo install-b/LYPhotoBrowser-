@@ -9,8 +9,9 @@
 #import "LYPhotoCell.h"
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
-#import "DACircularProgressView.h"
+//#import "DACircularProgressView.h"
 #import "UIImage+ScreenSize.h"
+#import "LYProgressView.h"
 
 @interface LYPhotoCell ()
     
@@ -18,7 +19,7 @@
 @property(nonatomic,weak) UIScrollView *scrollView;
 
 /** 进度条 */
-@property(nonatomic,weak) DACircularProgressView *progreView;
+@property(nonatomic,weak) LYProgressView *progreView;
 
 @end
 
@@ -42,10 +43,10 @@
     [scrollView addSubview:imageView];
     self.imageView = imageView;
     
-    DACircularProgressView *progressView = [[DACircularProgressView alloc] init];
+    LYProgressView *progressView = [[LYProgressView alloc] init];
     [self addSubview:progressView];
     self.progreView = progressView;
-    progressView.progressTintColor  = [UIColor colorWithWhite:0.98 alpha:0.99];
+    self.cellIndex = -1;
     
     __weak typeof(self) weakSelf = self;
     [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -70,27 +71,34 @@
         [self bringSubviewToFront:self.imageView];
         self.progreView.hidden = YES;
         self.imageView.image = image;
-        if (_complete) {
-            _complete();
+
+        if ([self.delegate respondsToSelector:@selector(photoCell:didLoadImage:)]) {
+            [self.delegate photoCell:self didLoadImage:image];
         }
+        
         return;
     }
     
     NSURL *url = [NSURL URLWithString:imagePath];
     __weak typeof(self) weakSelf = self;
+    __block CGFloat preogress;
     [self.imageView sd_setImageWithURL:url placeholderImage:nil options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize ,NSURL *url) {
-        self.progreView.progress = 1.0 * receivedSize / expectedSize;
-        if (_progress) {
-            _progress(1.0 * receivedSize / expectedSize);
-        }
+        
+        preogress = 1.0 * receivedSize / expectedSize;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.progreView setProgress:preogress];
+            !weakSelf.progress ?: weakSelf.progress(1.0 * receivedSize / expectedSize);
+        });
+        
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if (image) {
-            self.progreView.hidden = YES;
+            weakSelf.progreView.hidden = YES;
             weakSelf.imageView.frame = [image getImageScreenFrame];
             [weakSelf bringSubviewToFront:weakSelf.imageView];
-            if (_complete) {
-                _complete();
-            }
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(photoCell:didLoadImage:)]) {
+            [self.delegate photoCell:self didLoadImage:image];
         }
     }];
 
