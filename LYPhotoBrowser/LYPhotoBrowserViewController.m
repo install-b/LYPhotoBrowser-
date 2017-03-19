@@ -16,6 +16,7 @@
 @interface LYPhotoBrowserViewController () <LYPhotoAminatorDelegate,LYPhotoBrowserViewDelegate>
 {
     NSInteger _initalIndex; // 展示起始位置索引值
+    BOOL _finishedLoadImageView;
 }
 /** 开始动画视图 aninatorView */
 @property(nonatomic,weak) UIImageView *startImageView;
@@ -89,6 +90,7 @@
 // 完成model 动画调用
 - (void)presentingAnimaDidCompleteWithView:(UIView *)animaView {
     // 设置起始位置
+    _finishedLoadImageView = YES;
     [self.photoBrowserView setInitalIndex:_initalIndex];
 }
 // 即将modal时候调用
@@ -109,9 +111,10 @@
 // 加载第一张图
 - (void)didLoadStartImageIndex:(NSInteger)startIndex photoBrowserView:(LYPhotoBrowserView *)photoBrowserView {
     
-    if (startIndex == _initalIndex && self.startImageView) {
+    if (_finishedLoadImageView && startIndex == _initalIndex) {
         [self.startImageView removeFromSuperview];
         self.startImageView = nil;
+        _finishedLoadImageView = NO;
     }
 }
 

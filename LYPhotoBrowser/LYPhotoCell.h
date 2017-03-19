@@ -7,6 +7,7 @@
 //
 
 #import "SGInfiniteView/SGInfiniteViewCell.h"
+#import "LYPhotoImageView.h"
 
 @class LYPhotoCell;
 @protocol LYPhotoCellDelegate <NSObject>
@@ -20,7 +21,7 @@
 /** url */
 @property(nonatomic,copy) NSString *imagePath;
 /** imageView */
-@property(nonatomic,weak) UIImageView *imageView;
+@property(nonatomic,weak) LYPhotoImageView *imageView;
 
 /** 图片下载进度监听 */
 @property(nonatomic,copy) void(^progress)(CGFloat progress);
@@ -30,9 +31,5 @@
 
 /** delegate */
 @property (nonatomic,weak) id <LYPhotoCellDelegate> delegate;
-
-/** 图片下载完成 */
-//@property(nonatomic,copy) void(^complete)();
-
 
 @end
