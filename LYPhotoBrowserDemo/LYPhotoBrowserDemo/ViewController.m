@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "LYPhotoBrowserViewController.h"
+#import "UIViewController+LYVisible.h"
 @interface ViewController () <LYPhotoBrowserViewControllerDelegate>
 /** imageView */
 @property (nonatomic,weak) UIImageView *imageView;
@@ -19,17 +20,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    [self.view addSubview:imageView];
-    imageView.center = self.view.center;
-    imageView.backgroundColor = [UIColor redColor];
-    // 设置图片
-    [imageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[starIndex]]  placeholderImage:nil options:0 progress:nil completed:nil];
-    self.imageView = imageView;
+    [self setUpImageView];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+  
     // 照片浏览器
     LYPhotoBrowserViewController *pbVc = [[LYPhotoBrowserViewController alloc] init];
     
@@ -44,15 +39,22 @@
 - (void)photoBrowserViewController:(LYPhotoBrowserViewController *)PhotoBrowserVc didSaveImage:(UIImage *)image withError:(NSError *)error {
     
     error ? NSLog(@"保存失败-----") : NSLog(@"保存成功-----");
-//    if (error) {
-//        // 保存失败弹框
-//        NSLog(@"保存成功-----");
-//    }else {
-//        // 保存成功弹框
-//        
-//    }
     
 }
+
+
+
+- (void)setUpImageView {
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    [self.view addSubview:imageView];
+    imageView.center = self.view.center;
+    imageView.backgroundColor = [UIColor redColor];
+    // 设置图片
+    [imageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[starIndex]]  placeholderImage:nil options:0 progress:nil completed:nil];
+    self.imageView = imageView;
+
+}
+
 - (NSArray *)dataSource {
     
     return @[
