@@ -71,7 +71,11 @@
     //modal 浏览器
     [rootVc presentViewController:self animated:YES completion:nil];
 }
-
+// 设置无限滚动
+- (void)setInfiniteCycleBrowserEnable:(BOOL)enable {
+    [(LYPhotoBrowserView *)self.view setInfifiteCycleEnable:enable];
+    
+}
 #pragma mark - LYPhotoAminatorDelegate 动画代理
 // 获取起始图片位置
 - (UIImageView *)animatePositonView {
@@ -84,10 +88,8 @@
 }
 // 完成model 动画调用
 - (void)presentingAnimaDidCompleteWithView:(UIView *)animaView {
-    
-    [self.photoBrowserView scrollToIndexItem:_initalIndex];
-
-    [self.photoBrowserView setInitalIndex:_initalIndex compelete:nil];
+    // 设置起始位置
+    [self.photoBrowserView setInitalIndex:_initalIndex];
 }
 // 即将modal时候调用
 - (void)presentingAnimaWillPresenting:(UIView *)animaView {
@@ -125,6 +127,7 @@
     }];
 }
 
+#pragma mark - lazy load
 - (NSString *)photoDirectoryName {
     if (!_photoDirectoryName) {
         _photoDirectoryName =  [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleExecutableKey];

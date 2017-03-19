@@ -50,13 +50,13 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
 }
 #pragma mark - SGInfiniteViewDelegte
 /** 将要展示了第index 视图 */
-- (void)viewForInfiniteView:(SGInfiniteView *)infiniteView willShowIndex:(NSInteger)index { // 实时更新索引值
+- (void)viewForInfiniteView:(SGInfiniteView *)infiniteView willShowIndex:(NSInteger)index {
+    // 实时更新索引值
     self.currentIndex = index;
 }
 #pragma mark - LYPhotoCellDelegate
 - (void)photoCell:(LYPhotoCell *)cell didLoadImage:(UIImage *)image {
     if ([self.delegate respondsToSelector:@selector(didLoadStartImageIndex:photoBrowserView:)]) {
-        NSLog(@"111111111111--%zd",cell.cellIndex);
         [self.delegate didLoadStartImageIndex:cell.cellIndex photoBrowserView:self];
     }
 }
@@ -82,11 +82,13 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
     [self.infiniteView scrollToIndexItem:index];
 }
 // 设置一个位置的图片
-- (void)setInitalIndex:(NSUInteger)initalIndex compelete:(void(^)())complete {
-    
+- (void)setInitalIndex:(NSUInteger)initalIndex {
     [self.infiniteView scrollToIndexItem:initalIndex anima:NO];
     [self.infiniteView sg_reloadData];
     self.currentIndex = initalIndex;
+}
+- (void)setInfifiteCycleEnable:(BOOL)enable {
+    [self.infiniteView setInfinite:enable];
 }
 #pragma mark - add subviews
 - (void)setUpSubview {

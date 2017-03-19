@@ -13,13 +13,17 @@
 
 @required
 
+// 共有多少图片要展示
 - (NSInteger)numberOfItemsForInfiniteSlideView:(LYPhotoBrowserView *)photoBrowserView;
 
+// 返回index值下的图片url
 - (NSString *)imageURLForPhotoBrowserView:(LYPhotoBrowserView *)photoBrowserView inIndex:(NSInteger)index;
 
+// 已经加载了index对应的图片
 - (void)didLoadStartImageIndex:(NSInteger)startIndex photoBrowserView:(LYPhotoBrowserView *)photoBrowserView;
 
 @optional
+// 点击了保存图片
 - (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView saveImage:(UIImage *)image;
 
 @end
@@ -41,10 +45,16 @@
 
 
 /**
- <#Description#>
+ 设置是否需要循环滚动
 
- @param initalIndex <#initalIndex description#>
- @param complete <#complete description#>
+ @param enable 默认yes
  */
-- (void)setInitalIndex:(NSUInteger)initalIndex compelete:(void(^)())complete;
+- (void)setInfifiteCycleEnable:(BOOL)enable;
+
+/**
+ 设置起始位置索引值
+
+ @param initalIndex 起始索引值
+ */
+- (void)setInitalIndex:(NSUInteger)initalIndex;
 @end

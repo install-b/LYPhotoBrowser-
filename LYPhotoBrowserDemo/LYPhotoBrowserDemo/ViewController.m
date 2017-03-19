@@ -14,7 +14,7 @@
 /** imageView */
 @property (nonatomic,weak) UIImageView *imageView;
 @end
-#define starIndex 14
+#define starIndex 1
 
 @implementation ViewController
 
@@ -27,7 +27,7 @@
   
     // 照片浏览器
     LYPhotoBrowserViewController *pbVc = [[LYPhotoBrowserViewController alloc] init];
-    
+    [pbVc setInfiniteCycleBrowserEnable:NO];
     pbVc.imagePaths = self.dataSource;
     pbVc.delegate = self;
     UIImageView *imageView = self.imageView;
