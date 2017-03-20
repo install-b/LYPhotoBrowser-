@@ -47,7 +47,7 @@
     return YES;
 }
 
-#pragma mark - GestureRecognizerEvents
+#pragma mark - dealGestureRecognizerEvents
 - (void)rotationGestureRecognizer:(UIRotationGestureRecognizer *)sender {
     self.transform =  CGAffineTransformRotate(self.transform, sender.rotation);
     // 手势复位

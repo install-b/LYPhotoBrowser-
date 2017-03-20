@@ -78,12 +78,13 @@
         return;
     }
     
-    // 网络加载
+    // 网络加载 SDWebImage
     __weak typeof(self) weakSelf = self;
     __block CGFloat preogress;
     
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize ,NSURL *url) {
         preogress = 1.0 * receivedSize / expectedSize;
+        // 经度是在子线程回调的
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.progreView setProgress:preogress];
             !weakSelf.progress ?: weakSelf.progress(preogress);
@@ -94,6 +95,7 @@
     }];
 }
 
+// 图片加载完毕
 - (void)didLoadImage:(UIImage *)image {
     
     if (image) {

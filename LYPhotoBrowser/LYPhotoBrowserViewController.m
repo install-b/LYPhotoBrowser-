@@ -66,23 +66,16 @@
     // 配置视图控制器起始model位置图片
     self.startImageView = imageView;
     
-    // 获取根控制器
-    UIViewController *rootVc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    // 获取可见的根控制器
+    UIViewController *rootVc = [UIApplication sharedApplication].keyWindow.rootViewController.visibleViewController;
     
-    // 校验被modal出来的
-    if (!rootVc.view.window) {
-        rootVc = rootVc.presentedViewController;
-        if (!rootVc) {
-            return;
-        }
-    }
+    //modal 浏览器
+    [rootVc presentViewController:self animated:YES completion:nil];
+}
+// 设置无限滚动
+- (void)setInfiniteCycleBrowserEnable:(BOOL)enable {
+    [(LYPhotoBrowserView *)self.view setInfifiteCycleEnable:enable];
     
-    // modal 浏览器
-    [rootVc presentViewController:self animated:YES completion:^{
-        if (self.imagePaths.count < 3) {
-            [self.photoBrowserView scrollToIndexItem:imageIndex];
-        }
-    }];
 }
 #pragma mark - LYPhotoAminatorDelegate 动画代理
 // 获取起始图片位置
@@ -138,7 +131,7 @@
 }
 
 #pragma mark - lazy load
-- (NSString *)photoDirectoryName {
+- (NSString *)photoDirectoryName { // 相册名称
     if (!_photoDirectoryName) {
         _photoDirectoryName =  [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleExecutableKey];
     }
