@@ -16,7 +16,7 @@
 }
 
 + (void)sg_saveAImage:(UIImage *)image  error:(void(^)(NSError *error))error  {
-    [self sg_saveMedia:image withFolferName:[NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleIdentifierKey] error:error];
+    [self sg_saveMedia:image withFolferName:[NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleExecutableKey] error:error];
 }
 
 + (void)sg_saveVideo:(NSURL *)fileURL withFolferName:(NSString *)folderName error:(void (^)(NSError *))error {
@@ -25,7 +25,7 @@
 
 + (void)sg_saveVideo:(NSURL *)fileURL error:(void (^)(NSError *))error {
     
-    [self sg_saveMedia:fileURL withFolferName:[NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleIdentifierKey] error:error];
+    [self sg_saveMedia:fileURL withFolferName:[NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleExecutableKey] error:error];
 }
 #pragma mark - 状态设置
 /** 保存图片或视频到相册 获取用户设置状态 */

@@ -9,23 +9,22 @@
 #import "LYPhotoCell.h"
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
-#import "DACircularProgressView.h"
 #import "UIImage+ScreenSize.h"
+#import "LYProgressView.h"
 
-@interface LYPhotoCell ()
+@interface LYPhotoCell () <UIGestureRecognizerDelegate>
     
 /** scrollViewu查看长图 */
 @property(nonatomic,weak) UIScrollView *scrollView;
 
 /** 进度条 */
-@property(nonatomic,weak) DACircularProgressView *progreView;
+@property(nonatomic,weak) LYProgressView *progreView;
 
 @end
 
 @implementation LYPhotoCell
 - (instancetype)init {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
         [self setUp];
     }
     return self;
@@ -35,17 +34,17 @@
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     [self addSubview:scrollView];
-    scrollView.contentSize = CGSizeZero;
     self.scrollView = scrollView;
     
-    UIImageView *imageView = [[UIImageView alloc] init];
+    
+    LYPhotoImageView *imageView = [[LYPhotoImageView alloc] init];
     [scrollView addSubview:imageView];
     self.imageView = imageView;
     
-    DACircularProgressView *progressView = [[DACircularProgressView alloc] init];
+    LYProgressView *progressView = [[LYProgressView alloc] init];
     [self addSubview:progressView];
     self.progreView = progressView;
-    progressView.progressTintColor  = [UIColor colorWithWhite:0.98 alpha:0.99];
+    self.cellIndex = -1;
     
     __weak typeof(self) weakSelf = self;
     [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -54,45 +53,60 @@
     
     [progressView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(weakSelf);
-        make.height.width.equalTo(@(120));
+        make.height.width.equalTo(@(100));
     }];
 }
 
 - (void)setImagePath:(NSString *)imagePath {
+    
     _imagePath = imagePath;
+    
+    // 复用重置操作
+    self.imageView.userInteractionEnabled = NO;
+    self.imageView.transform = CGAffineTransformIdentity;
+    self.imageView.image = nil;
     self.progreView.hidden = NO;
     self.progreView.progress = 0;
+    self.scrollView.contentSize = CGSizeZero;
     [self bringSubviewToFront:self.progreView];
-    
+
+    // 加载图片
+    // 本地加载
     if (![imagePath containsString:@"://"]) {
         UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
-        self.imageView.frame = [image getImageScreenFrame];
-        [self bringSubviewToFront:self.imageView];
-        self.progreView.hidden = YES;
-        self.imageView.image = image;
-        if (_complete) {
-            _complete();
-        }
+        [self didLoadImage:image];
         return;
     }
     
-    NSURL *url = [NSURL URLWithString:imagePath];
+    // 网络加载
     __weak typeof(self) weakSelf = self;
-    [self.imageView sd_setImageWithURL:url placeholderImage:nil options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize ,NSURL *url) {
-        self.progreView.progress = 1.0 * receivedSize / expectedSize;
-        if (_progress) {
-            _progress(1.0 * receivedSize / expectedSize);
-        }
+    __block CGFloat preogress;
+    
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize ,NSURL *url) {
+        preogress = 1.0 * receivedSize / expectedSize;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.progreView setProgress:preogress];
+            !weakSelf.progress ?: weakSelf.progress(preogress);
+        });
+        
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        if (image) {
-            self.progreView.hidden = YES;
-            weakSelf.imageView.frame = [image getImageScreenFrame];
-            [weakSelf bringSubviewToFront:weakSelf.imageView];
-            if (_complete) {
-                _complete();
-            }
-        }
+        [weakSelf didLoadImage:image];
     }];
-
 }
+
+- (void)didLoadImage:(UIImage *)image {
+    
+    if (image) {
+        self.progreView.hidden = YES;
+        self.imageView.image = image;
+        self.imageView.frame = [image getImageScreenFrame];
+        [self bringSubviewToFront:self.imageView];
+        self.imageView.userInteractionEnabled = YES;
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(photoCell:didLoadImage:)]) {
+        [self.delegate photoCell:self didLoadImage:image];
+    }
+}
+
 @end

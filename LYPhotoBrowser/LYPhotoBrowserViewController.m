@@ -11,10 +11,12 @@
 #import "SGPictureTool.h"
 #import "SDWebImage/SDImageCache.h"
 #import "LYPhotoAminator.h"
+#import "UIViewController+LYVisible.h"
 
 @interface LYPhotoBrowserViewController () <LYPhotoAminatorDelegate,LYPhotoBrowserViewDelegate>
 {
     NSInteger _initalIndex; // 展示起始位置索引值
+    BOOL _finishedLoadImageView;
 }
 /** 开始动画视图 aninatorView */
 @property(nonatomic,weak) UIImageView *startImageView;
@@ -82,7 +84,6 @@
         }
     }];
 }
-
 #pragma mark - LYPhotoAminatorDelegate 动画代理
 // 获取起始图片位置
 - (UIImageView *)animatePositonView {
@@ -95,13 +96,13 @@
 }
 // 完成model 动画调用
 - (void)presentingAnimaDidCompleteWithView:(UIView *)animaView {
-    
-    [self.photoBrowserView setInitalIndex:_initalIndex compelete:^{
-        [animaView removeFromSuperview];
-    }];
+    // 设置起始位置
+    _finishedLoadImageView = YES;
+    [self.photoBrowserView setInitalIndex:_initalIndex];
 }
 // 即将modal时候调用
 - (void)presentingAnimaWillPresenting:(UIView *)animaView {
+    self.startImageView = (UIImageView *)animaView;
 }
 
 #pragma mark - LYPhotoBrowserViewDelegate 视图代理
@@ -113,6 +114,17 @@
 - (NSString *)imageURLForPhotoBrowserView:(LYPhotoBrowserView *)photoBrowserView inIndex:(NSInteger)index {
     return self.imagePaths[index];
 }
+
+// 加载第一张图
+- (void)didLoadStartImageIndex:(NSInteger)startIndex photoBrowserView:(LYPhotoBrowserView *)photoBrowserView {
+    
+    if (_finishedLoadImageView && startIndex == _initalIndex) {
+        [self.startImageView removeFromSuperview];
+        self.startImageView = nil;
+        _finishedLoadImageView = NO;
+    }
+}
+
 // 保存图片
 - (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView saveImage:(UIImage *)image {
     __weak typeof(self) weakSelf = self;
@@ -123,5 +135,14 @@
             [weakSelf.delegate photoBrowserViewController:weakSelf didSaveImage:image withError:error];
         }
     }];
-}    
+}
+
+#pragma mark - lazy load
+- (NSString *)photoDirectoryName {
+    if (!_photoDirectoryName) {
+        _photoDirectoryName =  [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleExecutableKey];
+    }
+    return _photoDirectoryName;
+}
+
 @end

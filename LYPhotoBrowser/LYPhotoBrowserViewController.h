@@ -21,6 +21,7 @@
  @param error 有值得时候代表保存失败
  */
 - (void)photoBrowserViewController:(LYPhotoBrowserViewController *)PhotoBrowserVc didSaveImage:(UIImage *)image withError:(NSError *)error;
+
 @end
 
 @interface LYPhotoBrowserViewController : UIViewController
@@ -33,7 +34,15 @@
 
 /** 保存图片到相册的文件夹名称（不设置默认为app名称） */
 @property (nonatomic,copy) NSString *photoDirectoryName;
-    
+
+
+/**
+ 设置浏览是否需要无限循环滚动浏览
+
+ @param enable 默认为YES
+ */
+- (void)setInfiniteCycleBrowserEnable:(BOOL)enable;
+
 /**
  *  弹出浏览控制器
  *

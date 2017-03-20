@@ -51,24 +51,6 @@
              [self.delegate presentingAnimaWillPresenting:imageView];
         }
        
-//        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-//            
-//            containnerView.alpha = 1.0;
-//            imageView.frame = toFrame;
-//            
-//            [toView layoutIfNeeded];
-//            
-//        }completion:^(BOOL finished) {
-//            if ([self.delegate respondsToSelector:@selector(presentingAnimaDidCompleteWithView:)]) {
-//                [self.delegate presentingAnimaDidCompleteWithView:imageView];
-//            }
-//            
-//            toView.hidden = NO;
-//            //[imageView removeFromSuperview];
-//            //  等动画结束的时候,要告诉系统动画已经结束
-//            [transitionContext completeTransition:YES];
-//        }];
-        
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7f initialSpringVelocity:0 options:0 animations:^{
             containnerView.alpha = 1.0;
             imageView.frame = toFrame;
@@ -85,8 +67,9 @@
         
     }else{ // dissmiss时候
         [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-            containnerView.alpha = 0.0;
-            
+            containnerView.alpha = 0.01;
+            containnerView.transform = CGAffineTransformMakeScale(2.0f, 2.0f);
+            [containnerView layoutIfNeeded];
         }completion:^(BOOL finished) {
             //  等动画结束的时候,要告诉系统动画已经结束
             [transitionContext completeTransition:YES];
@@ -133,7 +116,6 @@
 - (void)dismissalTransitionDidEnd:(BOOL)completed{
     //[self.containerView removeFromSuperview];
     [self.containerView addSubview:self.presentedView];
-    //NSLog(@"%s",__func__);
 }
 
 - (void)presentationTransitionDidEnd:(BOOL)completed {
