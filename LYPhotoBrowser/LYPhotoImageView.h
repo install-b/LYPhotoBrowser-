@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@class LYPhotoImageView;
+@protocol LYPhotoImageViewDelegate <NSObject>
+
+- (void)photoImageView:(LYPhotoImageView *)photoImageView willTransferToSize:(CGSize)tranferSize;
+
+- (void)photoImageView:(LYPhotoImageView *)photoImageView needTransferToSize:(CGSize)tranferSize;
+
+@end
 
 @interface LYPhotoImageView : UIImageView
+
+/**  delegate */
+@property(nonatomic,weak) id<LYPhotoImageViewDelegate> delegate;
 
 @end

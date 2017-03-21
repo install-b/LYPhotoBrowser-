@@ -12,7 +12,7 @@
 #import "UIImage+ScreenSize.h"
 #import "LYProgressView.h"
 
-@interface LYPhotoCell () <UIGestureRecognizerDelegate>
+@interface LYPhotoCell () <LYPhotoImageViewDelegate>
     
 /** scrollViewu查看长图 */
 @property(nonatomic,weak) UIScrollView *scrollView;
@@ -38,6 +38,7 @@
     
     
     LYPhotoImageView *imageView = [[LYPhotoImageView alloc] init];
+    imageView.delegate = self;
     [scrollView addSubview:imageView];
     self.imageView = imageView;
     
@@ -109,6 +110,21 @@
     if ([self.delegate respondsToSelector:@selector(photoCell:didLoadImage:)]) {
         [self.delegate photoCell:self didLoadImage:image];
     }
+}
+- (void)photoImageView:(LYPhotoImageView *)photoImageView willTransferToSize:(CGSize)tranferSize {
+    self.scrollView.contentSize = tranferSize;
+    CGFloat temp = (SCREEN_H - tranferSize.height) * 0.5;
+
+    [UIView animateWithDuration:0.12 animations:^{
+        self.imageView.frame = CGRectMake(0,  (temp >=0) ? temp : 0 , tranferSize.width, tranferSize.height);
+    }];
+    
+}
+- (void)photoImageView:(LYPhotoImageView *)photoImageView needTransferToSize:(CGSize)tranferSize {
+    self.scrollView.contentSize = tranferSize;
+    CGFloat Y = (SCREEN_H - tranferSize.height) * 0.5;
+    
+    self.imageView.frame = CGRectMake(0, (Y >=0) ? Y : 0 , tranferSize.width, tranferSize.height);
 }
 
 @end
