@@ -17,5 +17,12 @@
     // 递归寻找 当前控制器的可视 控制器
     return [self.presentedViewController visibleViewController];
 }
++ (UIViewController *)rootVisibaleViewController {
+    return [UIApplication sharedApplication].keyWindow.rootViewController.visibleViewController;
+}
+
++ (UIView *)rootVisibaleView {
+    return [UIApplication sharedApplication].keyWindow.rootViewController.visibleViewController.view;
+}
 
 @end

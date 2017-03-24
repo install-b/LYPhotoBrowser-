@@ -10,9 +10,9 @@
 @class LYPhotoImageView;
 @protocol LYPhotoImageViewDelegate <NSObject>
 
-- (void)photoImageView:(LYPhotoImageView *)photoImageView willTransferToSize:(CGSize)tranferSize;
+- (void)photoImageView:(LYPhotoImageView *)photoImageView willTransferToSize:(CGSize)tranferSize locationPoint:(CGPoint)locationPoint;
 
-- (void)photoImageView:(LYPhotoImageView *)photoImageView needTransferToSize:(CGSize)tranferSize;
+- (void)photoImageView:(LYPhotoImageView *)photoImageView needTransferToSize:(CGSize)tranferSize locationPoint:(CGPoint)locationPoint;
 
 @end
 

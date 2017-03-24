@@ -20,6 +20,7 @@
 
 /** url */
 @property(nonatomic,copy) NSString *imagePath;
+
 /** imageView */
 @property(nonatomic,weak) LYPhotoImageView *imageView;
 

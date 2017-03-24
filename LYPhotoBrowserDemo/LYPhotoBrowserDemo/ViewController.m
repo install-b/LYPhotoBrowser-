@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "LYPhotoBrowserViewController.h"
-#import "UIViewController+LYVisible.h"
+#import <SVProgressHUD.h>
 @interface ViewController () <LYPhotoBrowserViewControllerDelegate>
 /** imageView */
 @property (nonatomic,weak) UIImageView *imageView;
@@ -35,10 +35,14 @@
     [pbVc presentedWithView:imageView imageIndex:starIndex];
 }
     
-    
+#pragma mark - LYPhotoBrowserViewControllerDelegate
 - (void)photoBrowserViewController:(LYPhotoBrowserViewController *)PhotoBrowserVc didSaveImage:(UIImage *)image withError:(NSError *)error {
     
-    error ? NSLog(@"保存失败-----") : NSLog(@"保存成功-----");
+    if (error) {
+        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"保存失败:%@",error]];
+    }else {
+        [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+    }
     
 }
 

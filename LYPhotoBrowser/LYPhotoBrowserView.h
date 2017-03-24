@@ -22,13 +22,19 @@
 // 已经加载了index对应的图片
 - (void)didLoadStartImageIndex:(NSInteger)startIndex photoBrowserView:(LYPhotoBrowserView *)photoBrowserView;
 
-@optional
 // 点击了保存图片
 - (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView saveImage:(UIImage *)image;
 
+// 即将展示的视图索引
+- (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView willShowIndex:(NSInteger)index;
+
+// 已近展示了第几张图
+- (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView didShowIndex:(NSInteger)index;
 @end
 
 @interface LYPhotoBrowserView : UIView
+/** 当前显示的图片的索引 */
+@property(nonatomic,assign,readonly) NSInteger currentIndex;
 
 /**
  *  delegate

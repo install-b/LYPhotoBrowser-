@@ -36,10 +36,10 @@
 
 #pragma mark - addGestureRecognizer
 - (void)addGestureRecognizers {
-    // 旋转手势
-    UIRotationGestureRecognizer *rotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotationGestureRecognizer:)];
-    rotation.delegate = self;
-    [self addGestureRecognizer:rotation];
+//    // 旋转手势
+//    UIRotationGestureRecognizer *rotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotationGestureRecognizer:)];
+//    rotation.delegate = self;
+//    [self addGestureRecognizer:rotation];
     
     // 捏合手势
     UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchGestureRecognizer:)];
@@ -82,112 +82,77 @@
     //[self resetImageSizeAnimate];
 }
 - (void)doubleTapGestureRecognizer:(UITapGestureRecognizer *)doubleTap {
-   // 双击放大
-    if (self.bounds.size.width > SCREEN_W) {
-        [self resetImageSizeAnimate];
-    } else {
-        [self seeBigImageAmimate];
-    }
-    
+   
+     CGPoint point = [doubleTap locationInView:doubleTap.view];
+    // 双击放大
+    (self.bounds.size.width > SCREEN_W) ? [self resetImageSizeAnimate:point] : [self seeBigImageAmimate:point];
 }
 
-- (void)rotationGestureRecognizer:(UIRotationGestureRecognizer *)sender {
-    
-//    if (sender.state == UIGestureRecognizerStateBegan) {
-//        self.rotationStartP = [sender locationInView:sender.view];
-//    }
+//- (void)rotationGestureRecognizer:(UIRotationGestureRecognizer *)sender {
 //    
-//    CGPoint moveP =  [sender locationInView:sender.view];
-    self.transform =  CGAffineTransformRotate(self.transform, sender.rotation);
-    // 手势复位
-    [sender setRotation:0];
-    
-    // 结束手势
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        [self resetImageSizeAnimate];
-    }
-}
+////    if (sender.state == UIGestureRecognizerStateBegan) {
+////        self.rotationStartP = [sender locationInView:sender.view];
+////    }
+////    
+////    CGPoint moveP =  [sender locationInView:sender.view];
+//    self.transform =  CGAffineTransformRotate(self.transform, sender.rotation);
+//    // 手势复位
+//    [sender setRotation:0];
+//    
+//    // 结束手势
+//    if (sender.state == UIGestureRecognizerStateEnded) {
+//        [self resetImageSizeAnimate];
+//    }
+//}
 
 - (void)pinchGestureRecognizer:(UIPinchGestureRecognizer *)sender {
     
-    if ([self.delegate respondsToSelector:@selector(photoImageView:needTransferToSize:)]) {
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        CGPoint point = [sender locationInView:sender.view];
+        if (self.bounds.size.width / self.image.size.width > 1) {
+            [self seeBigImageAmimate:point];
+        } else if (self.bounds.size.width / SCREEN_W < 1) {
+            [self resetImageSizeAnimate:point];
+        }
+        return;
+    }
+
+    
+    if ([self.delegate respondsToSelector:@selector(photoImageView:needTransferToSize:locationPoint:)]) {
+        CGPoint point = [sender locationInView:sender.view];
         CGFloat scale = sender.scale;
         CGSize size = self.bounds.size;
-        [self.delegate photoImageView:self needTransferToSize:CGSizeMake(size.width * scale, size.height * scale)];
-    }
-    
-    // 复位
-    [sender setScale:1];
-    
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        if (self.bounds.size.width / self.image.size.width > 1) {
-            [self seeBigImageAmimate];
-        } else if (self.bounds.size.width / SCREEN_W < 1) {
-            [self resetImageSizeAnimate];
+        
+        CGFloat w = size.width * scale;
+        CGFloat h = size.height * scale;
+        // 放大到最大时候给一个阻滞感
+        if ((w > self.image.size.width || h > self.image.size.height) && scale > 1) {
+            w = size.width  * (1 + 0.007 /scale );
+            h = size.height * (1 + 0.007 /scale );
         }
+        
+        [self.delegate photoImageView:self needTransferToSize:CGSizeMake(w, h) locationPoint:point];
+        // 复位
+        [sender setScale:1];
     }
+
     
-//    self.transform = CGAffineTransformScale(self.transform, sender.scale, sender.scale);
-//    //复位操作
-//    [sender setScale:1];
-////
-//    if (sender.state == UIGestureRecognizerStateBegan) {
-//        self.pinchStartP = [sender locationInView:sender.view];
-//    }
-//    
-//   self.pinchMoveP = [sender locationInView:sender.view];
-//    
-//    
-//    // 手势结束
-//    if (sender.state == UIGestureRecognizerStateEnded) {
-//        // 图像缩小了 需要复位
-//        if (self.frame.origin.x > 0.0f) {
-////            [UIView animateWithDuration:0.15 animations:^{
-////                self.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
-////            }];
-//            [self resetImageSizeAnimate];
-//        }
-//        // 图像超过了伸缩范围 复位
-//        else if (self.frame.size.width > self.image.size.width) {
-//            [self seeBigImageAmimate];
-//        }
-//        
-//        else {
-//            // 其他情况
-//            if ([self.delegate respondsToSelector:@selector(photoImageView:willTransferToSize:)]) {
-//                [self.delegate photoImageView:self willTransferToSize:self.frame.size];
-//            }
-//        }
-//    }
 }
 
 #pragma mark - shrink animation
 // 复位动画
-- (void)resetImageSizeAnimate {
-//    if ([self.delegate respondsToSelector:@selector(photoImageView:willTransferToSize:)]) {
-//        [self.delegate photoImageView:self willTransferToSize:self.image.size];
-//    }
-//    [UIView animateWithDuration:0.15 animations:^{
-//        self.transform = CGAffineTransformIdentity;
-//    }];
+- (void)resetImageSizeAnimate:(CGPoint)point {
     
-    if ([self.delegate respondsToSelector:@selector(photoImageView:willTransferToSize:)]) {
-        [self.delegate photoImageView:self willTransferToSize:[self.image getImageScreenSize]];
+    if ([self.delegate respondsToSelector:@selector(photoImageView:willTransferToSize:locationPoint:)]) {
+        [self.delegate photoImageView:self willTransferToSize:[self.image getImageScreenSize] locationPoint:point];
     }
 
 }
 // 放大动画
-- (void)seeBigImageAmimate {
+- (void)seeBigImageAmimate:(CGPoint)point {
     
-    if ([self.delegate respondsToSelector:@selector(photoImageView:willTransferToSize:)]) {
-        [self.delegate photoImageView:self willTransferToSize:self.image.size];
+    if ([self.delegate respondsToSelector:@selector(photoImageView:willTransferToSize:locationPoint:)]) {
+        [self.delegate photoImageView:self willTransferToSize:self.image.size locationPoint:point];
     }
-//    CGFloat scale = self.image.size.width / SCREEN_W;
-//    if ([self.delegate respondsToSelector:@selector(photoImageView:willTransferToSize:)]) {
-//        [self.delegate photoImageView:self willTransferToSize:CGSizeMake(self.image.size.width * scale, self.image.size.height * scale)];
-//    }
-//    [UIView animateWithDuration:0.15 animations:^{
-//        self.transform = CGAffineTransformMakeScale(scale,scale);
-//    }];
 }
 @end

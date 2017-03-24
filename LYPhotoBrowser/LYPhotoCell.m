@@ -11,7 +11,7 @@
 #import "UIImageView+WebCache.h"
 #import "UIImage+ScreenSize.h"
 #import "LYProgressView.h"
-
+#import "UIViewController+LYVisible.h"
 @interface LYPhotoCell () <LYPhotoImageViewDelegate>
     
 /** scrollViewu查看长图 */
@@ -23,8 +23,8 @@
 @end
 
 @implementation LYPhotoCell
-- (instancetype)init {
-    if (self = [super init]) {
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
         [self setUp];
     }
     return self;
@@ -111,20 +111,58 @@
         [self.delegate photoCell:self didLoadImage:image];
     }
 }
-- (void)photoImageView:(LYPhotoImageView *)photoImageView willTransferToSize:(CGSize)tranferSize {
-    self.scrollView.contentSize = tranferSize;
-    CGFloat temp = (SCREEN_H - tranferSize.height) * 0.5;
 
-    [UIView animateWithDuration:0.12 animations:^{
-        self.imageView.frame = CGRectMake(0,  (temp >=0) ? temp : 0 , tranferSize.width, tranferSize.height);
+#pragma mark - LYPotoImageDelegate
+- (void)photoImageView:(LYPhotoImageView *)photoImageView willTransferToSize:(CGSize)tranferSize locationPoint:(CGPoint)locationPoint {
+    return [self photoImageView:photoImageView willTransferToSize:tranferSize locationPoint:locationPoint duration:0.25];
+}
+- (void)photoImageView:(LYPhotoImageView *)photoImageView needTransferToSize:(CGSize)tranferSize locationPoint:(CGPoint)locationPoint {
+    return [self photoImageView:photoImageView willTransferToSize:tranferSize locationPoint:locationPoint duration:0.0];
+}
+
+#pragma mark - image transfer
+- (void)photoImageView:(LYPhotoImageView *)photoImageView willTransferToSize:(CGSize)tranferSize locationPoint:(CGPoint)locationPoint duration:(NSTimeInterval)duration {
+   
+    CGPoint screenP = [photoImageView convertPoint:locationPoint toView:[UIViewController rootVisibaleView]];
+    
+    CGSize oringeSize = photoImageView.bounds.size;
+    
+    CGFloat offsetX = locationPoint.x * tranferSize.width  /  oringeSize.width - screenP.x;
+    CGFloat offsetY = locationPoint.y * tranferSize.height / oringeSize.height - screenP.y;
+    CGFloat maxOffsetX = tranferSize.width - SCREEN_W;
+    CGFloat maxOffsetY = tranferSize.height - SCREEN_H;
+    maxOffsetX = (maxOffsetX > 0) ? maxOffsetX : 0;
+    maxOffsetY = (maxOffsetY > 0) ? maxOffsetY : 0;
+    
+    if (offsetX > maxOffsetX) {
+        offsetX = maxOffsetX;
+    }
+    
+    if (offsetY > maxOffsetY) {
+        offsetY = maxOffsetY;
+    }
+    
+    if (tranferSize.width <= SCREEN_W) {
+        offsetX = 0;
+    }
+    
+    if (tranferSize.height <= SCREEN_H) {
+        offsetY = 0;
+    }
+    
+    CGPoint contenOffset = CGPointMake((offsetX > 0) ? offsetX : 0, (offsetY > 0) ? offsetY : 0);
+    
+    self.scrollView.contentSize = tranferSize;
+    CGFloat tempY = (SCREEN_H - tranferSize.height) * 0.5;
+    CGFloat tempX = (tranferSize.width -  SCREEN_W) * 0.5;
+    [self.scrollView setContentOffset:contenOffset animated:YES];
+    
+    [UIView animateWithDuration:duration animations:^{
+        self.imageView.frame = CGRectMake(tempX >= 0 ? 0 : -tempX,  (tempY >=0) ? tempY : 0 , tranferSize.width, tranferSize.height);
+        [self layoutIfNeeded];
+    }completion:^(BOOL finished) {
+        
     }];
-    
-}
-- (void)photoImageView:(LYPhotoImageView *)photoImageView needTransferToSize:(CGSize)tranferSize {
-    self.scrollView.contentSize = tranferSize;
-    CGFloat Y = (SCREEN_H - tranferSize.height) * 0.5;
-    
-    self.imageView.frame = CGRectMake(0, (Y >=0) ? Y : 0 , tranferSize.width, tranferSize.height);
-}
 
+}
 @end

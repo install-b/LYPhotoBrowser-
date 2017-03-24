@@ -30,7 +30,11 @@
 @implementation LYPhotoBrowserViewController
 #pragma mark - 控制器视图配置
 - (void)loadView {
+    // 隐藏状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    
     LYPhotoBrowserView *photoBrowserView = [[LYPhotoBrowserView alloc] init];
+    photoBrowserView.frame = [UIScreen mainScreen].bounds;
     self.view = photoBrowserView;
     self.photoBrowserView = photoBrowserView;
     photoBrowserView.delegate = self;
@@ -120,6 +124,12 @@
 
 // 保存图片
 - (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView saveImage:(UIImage *)image {
+    // 不需要保存
+    if ([self.delegate respondsToSelector:@selector(photoBrowserViewController:shouldSaveImage:withImageIdex:)] &&
+        ![self.delegate photoBrowserViewController:self shouldSaveImage:image withImageIdex:photoBrowserView.currentIndex]) {
+        return;
+    }
+    
     __weak typeof(self) weakSelf = self;
     // 保存图片到相册
     [SGPictureTool sg_saveAImage:image withFolferName:self.photoDirectoryName error:^(NSError *error) {
@@ -129,7 +139,19 @@
         }
     }];
 }
+// 即将展示的视图索引
+- (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView willShowIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(photoBrowserView:willShowIndex:)]) {
+        [self.delegate photoBrowserViewController:self willShowIndex:index];
+    }
+}
 
+// 已近展示了第几张图
+- (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView didShowIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(photoBrowserView:didShowIndex:)]) {
+        [self.delegate photoBrowserViewController:self didShowIndex:index];
+    }
+}
 #pragma mark - lazy load
 - (NSString *)photoDirectoryName { // 相册名称
     if (!_photoDirectoryName) {

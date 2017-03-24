@@ -16,4 +16,8 @@
  @return 控制器
  */
 - (instancetype)visibleViewController;
+
++ (UIViewController *)rootVisibaleViewController;
+
++ (UIView *)rootVisibaleView;
 @end

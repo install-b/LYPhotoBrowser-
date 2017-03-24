@@ -16,8 +16,7 @@
 @property(nonatomic,weak) SGInfiniteView *infiniteView;
 /** 索引标签 */
 @property(nonatomic,weak) UILabel *indexLable;
-/** 当前显示的图片的索引 */
-@property(nonatomic,assign) NSInteger currentIndex;
+
 @end
 
 static NSString *ID = @"InfiniteView_picture_cell_reuseId";
@@ -53,6 +52,11 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
 - (void)viewForInfiniteView:(SGInfiniteView *)infiniteView willShowIndex:(NSInteger)index {
     // 实时更新索引值
     self.currentIndex = index;
+    [self.delegate photoBrowserView:self willShowIndex:index];
+}
+/** 已经展示了第index 视图 */
+- (void)viewForInfiniteView:(SGInfiniteView *)infiniteView didShowIndex:(NSInteger)index{
+    [self.delegate photoBrowserView:self didShowIndex:index];
 }
 #pragma mark - LYPhotoCellDelegate
 - (void)photoCell:(LYPhotoCell *)cell didLoadImage:(UIImage *)image {
@@ -60,7 +64,6 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
         [self.delegate didLoadStartImageIndex:cell.cellIndex photoBrowserView:self];
     }
 }
-
 #pragma mark - clisk events
 // 保存图片
 - (void)clickSaveButton:(UIButton *)sender{
