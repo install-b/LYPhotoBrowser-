@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "LYPhotoBrowser-"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "an ios photo browser tool"
 
   # This description is used to generate tags and improve search results.
@@ -80,7 +80,7 @@ a photo browser tool , use this you can scroll it infinitly
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/install-b/LYPhotoBrowser-.git", :tag => "0.0.3" }
+  s.source       = { :git => "https://github.com/install-b/LYPhotoBrowser-.git", :tag => "0.0.4" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -133,7 +133,7 @@ a photo browser tool , use this you can scroll it infinitly
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.dependency "SGInfiniteView", "~> 0.1.1"
+  s.dependency "SGInfiniteView", "~> 0.1.2"
   s.dependency "SDWebImage", "~> 4.0.0"
   s.dependency "Masonry", "~> 1.0.2"
 end
