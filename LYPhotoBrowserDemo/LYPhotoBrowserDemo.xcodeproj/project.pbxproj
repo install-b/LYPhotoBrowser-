@@ -22,7 +22,6 @@
 		917807688B170D16096EC5D3 /* libPods-LYPhotoBrowserDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6625701942B0F31A642E173 /* libPods-LYPhotoBrowserDemo.a */; };
 		A706AA381E7E4670008D20C9 /* LYProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A706AA371E7E4670008D20C9 /* LYProgressView.m */; };
 		A706AA3B1E7E65AA008D20C9 /* UIViewController+LYVisible.m in Sources */ = {isa = PBXBuildFile; fileRef = A706AA3A1E7E65AA008D20C9 /* UIViewController+LYVisible.m */; };
-		A706AA3E1E7EB090008D20C9 /* LYPhotoImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A706AA3D1E7EB090008D20C9 /* LYPhotoImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,8 +52,6 @@
 		A706AA371E7E4670008D20C9 /* LYProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProgressView.m; sourceTree = "<group>"; };
 		A706AA391E7E65AA008D20C9 /* UIViewController+LYVisible.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LYVisible.h"; sourceTree = "<group>"; };
 		A706AA3A1E7E65AA008D20C9 /* UIViewController+LYVisible.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LYVisible.m"; sourceTree = "<group>"; };
-		A706AA3C1E7EB090008D20C9 /* LYPhotoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYPhotoImageView.h; sourceTree = "<group>"; };
-		A706AA3D1E7EB090008D20C9 /* LYPhotoImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYPhotoImageView.m; sourceTree = "<group>"; };
 		E6625701942B0F31A642E173 /* libPods-LYPhotoBrowserDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LYPhotoBrowserDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5DB9CF05F88BD6A3A8A75F8 /* Pods-LYPhotoBrowserDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPhotoBrowserDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYPhotoBrowserDemo/Pods-LYPhotoBrowserDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,8 +132,6 @@
 				A706AA3A1E7E65AA008D20C9 /* UIViewController+LYVisible.m */,
 				5FF794C41E7417A4001F5522 /* LYPhotoCell.h */,
 				5FF794C51E7417A4001F5522 /* LYPhotoCell.m */,
-				A706AA3C1E7EB090008D20C9 /* LYPhotoImageView.h */,
-				A706AA3D1E7EB090008D20C9 /* LYPhotoImageView.m */,
 				A706AA361E7E4670008D20C9 /* LYProgressView.h */,
 				A706AA371E7E4670008D20C9 /* LYProgressView.m */,
 				5FF794C81E7417A4001F5522 /* SGPictureTool.h */,
@@ -286,7 +281,6 @@
 				5FF794A81E741791001F5522 /* main.m in Sources */,
 				5FF794CD1E7417A4001F5522 /* LYPhotoBrowserView.m in Sources */,
 				5FF794D21E7417A4001F5522 /* UIImage+ScreenSize.m in Sources */,
-				A706AA3E1E7EB090008D20C9 /* LYPhotoImageView.m in Sources */,
 				A706AA3B1E7E65AA008D20C9 /* UIViewController+LYVisible.m in Sources */,
 				5FF794D11E7417A4001F5522 /* SGPictureTool.m in Sources */,
 				5FF794CF1E7417A4001F5522 /* LYPhotoCell.m in Sources */,

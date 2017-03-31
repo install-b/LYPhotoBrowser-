@@ -7,12 +7,16 @@
 //
 
 #import "SGInfiniteView/SGInfiniteViewCell.h"
-#import "LYPhotoImageView.h"
+
 
 @class LYPhotoCell;
 @protocol LYPhotoCellDelegate <NSObject>
 
 - (void)photoCell:(LYPhotoCell *)cell didLoadImage:(UIImage *)image;
+
+- (void)photoCell:(LYPhotoCell *)cell beginZoomingScrollView:(UIScrollView *)scrollView;
+
+- (void)photoCell:(LYPhotoCell *)cell endZoomingScrollView:(UIScrollView *)scrollView;
 
 @end
 
@@ -22,7 +26,7 @@
 @property(nonatomic,copy) NSString *imagePath;
 
 /** imageView */
-@property(nonatomic,weak) LYPhotoImageView *imageView;
+@property(nonatomic,weak) UIImageView *imageView;
 
 /** 图片下载进度监听 */
 @property(nonatomic,copy) void(^progress)(CGFloat progress);

@@ -13,7 +13,7 @@
 #import "LYPhotoAminator.h"
 #import "UIViewController+LYVisible.h"
 
-@interface LYPhotoBrowserViewController () <LYPhotoAminatorDelegate,LYPhotoBrowserViewDelegate>
+@interface LYPhotoBrowserViewController () <LYPhotoAminatorDelegate,LYPhotoBrowserViewDelegate,UIGestureRecognizerDelegate>
 {
     NSInteger _initalIndex; // 展示起始位置索引值
     BOOL _finishedLoadImageView;
@@ -39,6 +39,7 @@
     self.photoBrowserView = photoBrowserView;
     photoBrowserView.delegate = self;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchSelfView:)];
+    tap.delegate = self;
     [photoBrowserView addGestureRecognizer:tap];
 }
 
@@ -80,6 +81,13 @@
 - (void)setInfiniteCycleBrowserEnable:(BOOL)enable {
     [(LYPhotoBrowserView *)self.view setInfifiteCycleEnable:enable];
     
+}
+#pragma mark - 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([touch.view isKindOfClass:[UIImageView class]]) {
+        return NO;
+    }
+    return YES;
 }
 #pragma mark - LYPhotoAminatorDelegate 动画代理
 // 获取起始图片位置

@@ -64,9 +64,20 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
         [self.delegate didLoadStartImageIndex:cell.cellIndex photoBrowserView:self];
     }
 }
+#pragma mark set infiniteview roll enbale
+- (void)photoCell:(LYPhotoCell *)cell beginZoomingScrollView:(UIScrollView *)scrollView {
+    [self.infiniteView setScrollEnable:NO];
+}
+
+- (void)photoCell:(LYPhotoCell *)cell endZoomingScrollView:(UIScrollView *)scrollView {
+    if (scrollView.zoomScale == 1.0f) {
+        [self.infiniteView setScrollEnable:YES];
+    }
+}
 #pragma mark - clisk events
 // 保存图片
 - (void)clickSaveButton:(UIButton *)sender{
+    
     if ([self.delegate respondsToSelector:@selector(photoBrowserView:saveImage:)]) {
         UIImage *image = [(LYPhotoCell *)[self.infiniteView currentVisiableView] imageView].image;
         [self.delegate photoBrowserView:self saveImage:image];
@@ -78,6 +89,7 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
     _currentIndex = currentIndex;
     _indexLable.text = [NSString stringWithFormat:@"%zd/%zd", currentIndex + 1,[self.delegate numberOfItemsForInfiniteSlideView:self]];
 }
+
 
 #pragma mark - public mothoeds
 // 跳转到指定的位置
