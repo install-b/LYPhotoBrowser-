@@ -12,6 +12,7 @@
 #import "UIImage+ScreenSize.h"
 #import "LYProgressView.h"
 #import "UIViewController+LYVisible.h"
+
 @interface LYPhotoCell () <UIScrollViewDelegate>
     
 /** scrollViewu查看长图 */
@@ -20,17 +21,20 @@
 /** 进度条 */
 @property(nonatomic,weak) LYProgressView *progreView;
 
+// 图片在屏幕展示的位置尺寸
+@property(nonatomic,assign) CGRect imageScreenFrame;
+
 @end
 
 @implementation LYPhotoCell
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [self setUp];
+        [self setUpSubViews];
     }
     return self;
 }
-
-- (void)setUp {
+#pragma mark setups
+- (void)setUpSubViews {
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     [self addSubview:scrollView];
@@ -38,7 +42,6 @@
     scrollView.delegate = self;
     
     UIImageView *imageView = [[UIImageView alloc] init];
-    //imageView.delegate = self;
     [scrollView addSubview:imageView];
     self.imageView = imageView;
     
@@ -62,10 +65,7 @@
     }];
 }
 
-- (void)setImagePath:(NSString *)imagePath {
-    
-    _imagePath = imagePath;
-    
+- (void)reuseSetUp {
     // 复用重置操作
     self.imageView.userInteractionEnabled = NO;
     self.imageView.transform = CGAffineTransformIdentity;
@@ -76,6 +76,25 @@
     [self bringSubviewToFront:self.progreView];
     self.scrollView.minimumZoomScale = 1.0;
     self.scrollView.maximumZoomScale = 1.0;
+    self.imageScreenFrame = CGRectZero;
+}
+
+#pragma mark - setter
+- (void)setImagePath:(NSString *)imagePath {
+    // 属性赋值
+    _imagePath = imagePath;
+    
+    // 重用初始化
+    [self reuseSetUp];
+    
+    // 加载图片
+    [self loadImageWithImageURL:imagePath];
+}
+
+
+
+#pragma mark - load image
+- (void)loadImageWithImageURL:(NSString *)imagePath {
     // 加载图片
     // 本地加载
     if (![imagePath containsString:@"://"]) {
@@ -100,7 +119,6 @@
         [weakSelf didLoadImage:image];
     }];
 }
-
 // 图片加载完毕
 - (void)didLoadImage:(UIImage *)image {
     
@@ -108,6 +126,7 @@
         self.progreView.hidden = YES;
         self.imageView.image = image;
         self.imageView.frame = [image getImageScreenFrame];
+        self.imageScreenFrame = self.imageView.frame;
         [self bringSubviewToFront:self.imageView];
         self.imageView.userInteractionEnabled = YES;
         CGFloat scale = image.size.width / [UIScreen mainScreen].bounds.size.width;
@@ -124,7 +143,21 @@
         [self.delegate photoCell:self didLoadImage:image];
     }
 }
-#pragma mark - tap zoom
+#pragma mark - double tap
+- (void)doubleTap:(UITapGestureRecognizer *)tap {
+    
+    CGFloat maxZoom = self.scrollView.maximumZoomScale;
+    // 校验
+    if (!(maxZoom > 1.0f && maxZoom < 5.0f )) {
+        return;
+    }
+    
+    float newscale =  (self.scrollView.zoomScale == 1.0) ? maxZoom : 1.0;
+    CGRect zoomRect = [self zoomRectForScale:newscale withCenter:[tap locationInView:tap.view]];
+    //重新定义其cgrect的x和y值
+    [self.scrollView zoomToRect:zoomRect animated:YES];
+}
+#pragma mark  tap zoom
 - (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center {
     
     CGRect zoomRect;
@@ -138,20 +171,6 @@
     return zoomRect;
 }
 
-#pragma mark - tap
-- (void)doubleTap:(UITapGestureRecognizer *)tap {
-    
-    CGFloat maxZoom = self.scrollView.maximumZoomScale;
-    // 校验
-    if (!(maxZoom > 1.0f && maxZoom < 5.0f )) {
-        return;
-    }
-    
-    float newscale=  (self.scrollView.zoomScale == 1.0) ? maxZoom : 1.0;
-    CGRect zoomRect = [self zoomRectForScale:newscale withCenter:[tap locationInView:tap.view]];
-    //重新定义其cgrect的x和y值
-    [self.scrollView zoomToRect:zoomRect animated:YES];
-}
 
 #pragma mark - UIScrollViewDelegate
 
@@ -177,66 +196,28 @@
         [self.delegate photoCell:self endZoomingScrollView:self.scrollView];
     }
 }
+
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
 
-    CGFloat offset = self.imageView.frame.origin.y;
-    if (offset <= 0) {
-        return;
-    }
-    self.scrollView.contentInset = ([UIScreen mainScreen].bounds.size.height - _imageView.frame.size.height < offset) ? UIEdgeInsetsMake(- offset, 0, offset, 0) : UIEdgeInsetsZero;
+    (scrollView.zoomScale >= 1.0) ? [self dealLargenZoom:scrollView] : [self dealShrinkZoom:scrollView];
 }
 
-//#pragma mark - LYPotoImageDelegate
-//- (void)photoImageView:(LYPhotoImageView *)photoImageView willTransferToSize:(CGSize)tranferSize locationPoint:(CGPoint)locationPoint {
-//    return [self photoImageView:photoImageView willTransferToSize:tranferSize locationPoint:locationPoint duration:0.25];
-//}
-//- (void)photoImageView:(LYPhotoImageView *)photoImageView needTransferToSize:(CGSize)tranferSize locationPoint:(CGPoint)locationPoint {
-//    return [self photoImageView:photoImageView willTransferToSize:tranferSize locationPoint:locationPoint duration:0.0];
-//}
-//
-//#pragma mark - image transfer
-//- (void)photoImageView:(LYPhotoImageView *)photoImageView willTransferToSize:(CGSize)tranferSize locationPoint:(CGPoint)locationPoint duration:(NSTimeInterval)duration {
-//   
-////    CGPoint screenP = [photoImageView convertPoint:locationPoint toView:[UIViewController rootVisibaleView]];
-////    
-////    CGSize oringeSize = photoImageView.bounds.size;
-////    
-////    CGFloat offsetX = locationPoint.x * tranferSize.width  /  oringeSize.width - screenP.x;
-////    CGFloat offsetY = locationPoint.y * tranferSize.height / oringeSize.height - screenP.y;
-////    CGFloat maxOffsetX = tranferSize.width - SCREEN_W;
-////    CGFloat maxOffsetY = tranferSize.height - SCREEN_H;
-////    maxOffsetX = (maxOffsetX > 0) ? maxOffsetX : 0;
-////    maxOffsetY = (maxOffsetY > 0) ? maxOffsetY : 0;
-////    
-////    if (offsetX > maxOffsetX) {
-////        offsetX = maxOffsetX;
-////    }
-////    
-////    if (offsetY > maxOffsetY) {
-////        offsetY = maxOffsetY;
-////    }
-////    
-////    if (tranferSize.width <= SCREEN_W) {
-////        offsetX = 0;
-////    }
-////    
-////    if (tranferSize.height <= SCREEN_H) {
-////        offsetY = 0;
-////    }
-////    
-////    CGPoint contenOffset = CGPointMake((offsetX > 0) ? offsetX : 0, (offsetY > 0) ? offsetY : 0);
-////    
-////    self.scrollView.contentSize = tranferSize;
-////    CGFloat tempY = (SCREEN_H - tranferSize.height) * 0.5;
-////    CGFloat tempX = (tranferSize.width -  SCREEN_W) * 0.5;
-////    [self.scrollView setContentOffset:contenOffset animated:YES];
-////    
-////    [UIView animateWithDuration:duration animations:^{
-////        self.imageView.frame = CGRectMake(tempX >= 0 ? 0 : -tempX,  (tempY >=0) ? tempY : 0 , tranferSize.width, tranferSize.height);
-////        [self layoutIfNeeded];
-////    }completion:^(BOOL finished) {
-////        
-////    }];
-//
-//}
+#pragma mark - deal offset
+// 放大时候
+- (void)dealLargenZoom:(UIScrollView *)scrollView {
+    CGFloat offset = self.imageView.frame.origin.y;
+
+    if (offset <= 0) return;
+    
+    CGFloat topInset = (SCREEN_H - _imageView.frame.size.height) * 0.5 - offset;
+
+    self.scrollView.contentInset = UIEdgeInsetsMake(topInset, 0, -topInset, 0);
+}
+// 缩小的时候
+- (void)dealShrinkZoom:(UIScrollView *)scrollView {
+    
+    CGFloat zoom = (1 - scrollView.zoomScale) * 0.5;
+    
+    scrollView.contentOffset = CGPointMake(- self.imageScreenFrame.size.width * zoom, - self.imageScreenFrame.size.height * zoom);
+}
 @end

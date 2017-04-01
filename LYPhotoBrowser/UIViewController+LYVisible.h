@@ -17,7 +17,19 @@
  */
 - (instancetype)visibleViewController;
 
+
+/**
+ keywindow上的可视根控制器
+
+ @return 控制器
+ */
 + (UIViewController *)rootVisibaleViewController;
 
+
+/**
+  keywindow上的可视根控制器视图
+
+ @return 一定在屏幕上的视图
+ */
 + (UIView *)rootVisibaleView;
 @end

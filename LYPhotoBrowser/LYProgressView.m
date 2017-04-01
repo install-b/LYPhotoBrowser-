@@ -85,7 +85,6 @@
 - (CGPoint)centerP {
     
     if (!_centerP.x) {
-        
         _centerP = CGPointMake(self.width * 0.5, self.height * 0.5);
     }
     return _centerP;

@@ -62,7 +62,7 @@
 @property(nonatomic,strong) NSArray<NSString *> *imagePaths;
 
 /** delegate */
-@property (nonatomic,weak) id<LYPhotoBrowserViewControllerDelegate> delegate;
+@property (nonatomic,weak) id <LYPhotoBrowserViewControllerDelegate> delegate;
 
 /** 保存图片到相册的文件夹名称（不设置默认为app名称） */
 @property (nonatomic,copy) NSString *photoDirectoryName;
