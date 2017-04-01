@@ -38,6 +38,8 @@
     
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     [self addSubview:scrollView];
+    scrollView.showsVerticalScrollIndicator = NO;
+    scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView = scrollView;
     scrollView.delegate = self;
     
@@ -48,6 +50,7 @@
     UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTap:)];
     [doubleTapGestureRecognizer setNumberOfTapsRequired:2];
     [imageView addGestureRecognizer:doubleTapGestureRecognizer];
+    
     
     LYProgressView *progressView = [[LYProgressView alloc] init];
     [self addSubview:progressView];
@@ -91,8 +94,6 @@
     [self loadImageWithImageURL:imagePath];
 }
 
-
-
 #pragma mark - load image
 - (void)loadImageWithImageURL:(NSString *)imagePath {
     // 加载图片
@@ -112,7 +113,9 @@
         // 经度是在子线程回调的
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.progreView setProgress:preogress];
-            !weakSelf.progress ?: weakSelf.progress(preogress);
+            if ([weakSelf.delegate respondsToSelector:@selector(photoCell:loadImageProgress:)]) {
+                [weakSelf.delegate photoCell:weakSelf loadImageProgress:preogress];
+            }
         });
         
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {

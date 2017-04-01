@@ -18,6 +18,7 @@
     NSInteger _initalIndex; // 展示起始位置索引值
     BOOL _finishedLoadImageView;
 }
+
 /** 开始动画视图 aninatorView */
 @property(nonatomic,weak) UIImageView *startImageView;
     
@@ -30,9 +31,7 @@
 @implementation LYPhotoBrowserViewController
 #pragma mark - 控制器视图配置
 - (void)loadView {
-    // 隐藏状态栏
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    
+   
     LYPhotoBrowserView *photoBrowserView = [[LYPhotoBrowserView alloc] init];
     photoBrowserView.frame = [UIScreen mainScreen].bounds;
     self.view = photoBrowserView;
@@ -54,6 +53,17 @@
     }
     return self;
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    // 隐藏状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    // 隐藏状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+}
+
 #pragma mark - comstom modal Anima
 #pragma mark  消失动画
 - (void)touchSelfView:(id)sender {

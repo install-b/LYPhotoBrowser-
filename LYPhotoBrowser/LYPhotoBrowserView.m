@@ -7,7 +7,7 @@
 //
 
 #import "LYPhotoBrowserView.h"
-#import "Masonry/Masonry.h"
+#import "Masonry.h"
 #import "SGInfiniteView/SGInfiniteView.h"
 #import "LYPhotoCell.h"
 
@@ -59,6 +59,11 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
     [self.delegate photoBrowserView:self didShowIndex:index];
 }
 #pragma mark - LYPhotoCellDelegate
+// 图片下载的进度progress
+- (void)photoCell:(LYPhotoCell *)cell loadImageProgress:(CGFloat)progress {
+    // code here do something when image downloading
+}
+// 图片下载完成
 - (void)photoCell:(LYPhotoCell *)cell didLoadImage:(UIImage *)image {
     if ([self.delegate respondsToSelector:@selector(didLoadStartImageIndex:photoBrowserView:)]) {
         [self.delegate didLoadStartImageIndex:cell.cellIndex photoBrowserView:self];
@@ -110,7 +115,6 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
     self.backgroundColor = [UIColor blackColor];
     // 浏览图片视图
     SGInfiniteView *infiniteView = [[SGInfiniteView alloc] init];
-    //[infiniteView setInfinite:NO];
     [self addSubview:infiniteView];
     self.infiniteView = infiniteView;
     infiniteView.dataSource = self;     // 设置数据源
@@ -118,6 +122,12 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
     [infiniteView setPageMargin:10.0f]; // 设置分边距
     // 注册cell
     [infiniteView sg_registerClass:[LYPhotoCell class] forCellWithReuseIdentifier:ID];
+    
+    // 布局设置约束
+    __weak typeof(self) weakSelf = self;
+    [infiniteView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(weakSelf);
+    }];
     
     // 索引标签
     UILabel *indexLable = [[UILabel alloc] init];
@@ -128,11 +138,9 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
     indexLable.layer.cornerRadius = 5;
     indexLable.layer.masksToBounds = YES;
     indexLable.textAlignment = NSTextAlignmentCenter;
-    //self.currentIndex = _currentIndex; // 设置文字
     
     // 保存按钮
     UIButton *saveButton = [[UIButton alloc] init];
-    //self.saveBotton = saveButton;
     [self addSubview:saveButton];
     saveButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     saveButton.layer.cornerRadius = 5;
@@ -140,12 +148,6 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
     [saveButton setTitle:@"保存" forState:UIControlStateNormal];
     [saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [saveButton addTarget:self action:@selector(clickSaveButton:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // 布局设置约束
-    __weak typeof(self) weakSelf = self;
-    [infiniteView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(weakSelf);
-    }];
     
     [indexLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf);

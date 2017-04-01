@@ -122,20 +122,20 @@
 		5FF794BD1E7417A4001F5522 /* LYPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				5FF794BE1E7417A4001F5522 /* LYPhotoAminator.h */,
-				5FF794BF1E7417A4001F5522 /* LYPhotoAminator.m */,
-				5FF794C01E7417A4001F5522 /* LYPhotoBrowserView.h */,
-				5FF794C11E7417A4001F5522 /* LYPhotoBrowserView.m */,
 				5FF794C21E7417A4001F5522 /* LYPhotoBrowserViewController.h */,
 				5FF794C31E7417A4001F5522 /* LYPhotoBrowserViewController.m */,
-				A706AA391E7E65AA008D20C9 /* UIViewController+LYVisible.h */,
-				A706AA3A1E7E65AA008D20C9 /* UIViewController+LYVisible.m */,
+				5FF794C01E7417A4001F5522 /* LYPhotoBrowserView.h */,
+				5FF794C11E7417A4001F5522 /* LYPhotoBrowserView.m */,
 				5FF794C41E7417A4001F5522 /* LYPhotoCell.h */,
 				5FF794C51E7417A4001F5522 /* LYPhotoCell.m */,
 				A706AA361E7E4670008D20C9 /* LYProgressView.h */,
 				A706AA371E7E4670008D20C9 /* LYProgressView.m */,
+				5FF794BE1E7417A4001F5522 /* LYPhotoAminator.h */,
+				5FF794BF1E7417A4001F5522 /* LYPhotoAminator.m */,
 				5FF794C81E7417A4001F5522 /* SGPictureTool.h */,
 				5FF794C91E7417A4001F5522 /* SGPictureTool.m */,
+				A706AA391E7E65AA008D20C9 /* UIViewController+LYVisible.h */,
+				A706AA3A1E7E65AA008D20C9 /* UIViewController+LYVisible.m */,
 				5FF794CA1E7417A4001F5522 /* UIImage+ScreenSize.h */,
 				5FF794CB1E7417A4001F5522 /* UIImage+ScreenSize.m */,
 			);

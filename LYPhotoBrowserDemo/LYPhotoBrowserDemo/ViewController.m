@@ -14,7 +14,7 @@
 /** imageView */
 @property (nonatomic,weak) UIImageView *imageView;
 @end
-#define starIndex 25
+#define starIndex 5
 
 @implementation ViewController
 
