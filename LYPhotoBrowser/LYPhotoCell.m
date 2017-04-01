@@ -213,7 +213,15 @@
     if (offset <= 0) return;
     
     CGFloat topInset = (SCREEN_H - _imageView.frame.size.height) * 0.5 - offset;
-
+    
+    // 计算最大的offset
+    CGFloat maxTopInset = (SCREEN_H - self.imageScreenFrame.size.height) * 0.5;
+    
+    // 越界处理
+    if (maxTopInset + topInset < 0) {
+        topInset = -maxTopInset;
+    }
+    
     self.scrollView.contentInset = UIEdgeInsetsMake(topInset, 0, -topInset, 0);
 }
 // 缩小的时候
