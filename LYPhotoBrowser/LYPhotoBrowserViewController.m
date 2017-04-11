@@ -109,6 +109,18 @@
     }
     return imageView;
 }
+// 获取结束视图位置
+- (UIView *)targetDisMissView {
+    if ([self.delegate respondsToSelector:@selector(viewForDisMissWithImageIndex:photoBrowserViewController:)]) {
+        return [self.delegate viewForDisMissWithImageIndex:self.photoBrowserView.currentIndex photoBrowserViewController:self];
+    }
+    return nil;
+}
+
+- (UIImageView *)disMissIamgeView {
+    return self.photoBrowserView.currentImageView;
+}
+
 // 完成model 动画调用
 - (void)presentingAnimaDidCompleteWithView:(UIView *)animaView {
     // 设置起始位置

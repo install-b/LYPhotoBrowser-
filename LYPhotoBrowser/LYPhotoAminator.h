@@ -11,11 +11,27 @@
 
 @protocol LYPhotoAminatorDelegate <NSObject>
 /**
- 获取开始model位置视图
+ 获取开始modal位置视图
 
  @return 返回一个初始化视图
  */
 - (UIImageView *)animatePositonView;
+
+
+/**
+ 获取结束modal位置的视图
+
+ @return 返回一个结束位置的视图
+ */
+- (UIView *)targetDisMissView;
+
+
+/**
+ 结束动画的图片视图
+
+ @return 返回一个需结束动画的图片视图
+ */
+- (UIImageView *)disMissIamgeView;
 @optional
 
 /**

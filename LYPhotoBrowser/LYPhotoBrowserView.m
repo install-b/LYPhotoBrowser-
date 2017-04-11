@@ -33,6 +33,11 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
     [super awakeFromNib];
     [self setUpSubview];
 }
+
+- (UIImageView *)currentImageView {
+    return [(LYPhotoCell *)self.infiniteView.currentVisiableView imageView];
+}
+
 #pragma mark - SGInfiniteViewDatasource
 /** 要循环的view的个数 */
 - (NSInteger)numberOfItemsForInfiniteSlideView:(SGInfiniteView *)infiniteView {

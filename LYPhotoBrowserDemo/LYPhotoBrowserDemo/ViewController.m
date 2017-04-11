@@ -46,7 +46,12 @@
     
 }
 
+- (UIView *)viewForDisMissWithImageIndex:(NSInteger)imageIndex photoBrowserViewController:(LYPhotoBrowserViewController *)PhotoBrowserVc {
+    
+    return self.imageView;
+}
 
+#pragma mark - setup
 
 - (void)setUpImageView {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];

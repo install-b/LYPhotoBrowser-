@@ -63,4 +63,12 @@
  @param initalIndex 起始索引值
  */
 - (void)setInitalIndex:(NSUInteger)initalIndex;
+
+
+/**
+ 获取当前的图片
+
+ @return 图片视图
+ */
+- (UIImageView *)currentImageView;
 @end

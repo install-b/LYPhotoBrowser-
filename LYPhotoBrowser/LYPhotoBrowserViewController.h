@@ -15,6 +15,15 @@
 @optional
 
 /**
+ 返回一个浏览器消失动画的视图
+
+ @param imageIndex 即将消失的图片索引
+ @param PhotoBrowserVc 图片浏览器
+ @return 消失的位置 可以为空
+ */
+- (UIView *)viewForDisMissWithImageIndex:(NSInteger)imageIndex photoBrowserViewController:(LYPhotoBrowserViewController *)PhotoBrowserVc;
+
+/**
  即将展示的图片索引
 
  @param PhotoBrowserVc 图片浏览控制器

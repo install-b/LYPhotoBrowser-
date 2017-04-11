@@ -65,7 +65,38 @@
             [transitionContext completeTransition:YES];
         }];
         
-    }else{ // dissmiss时候
+    }
+    
+    else{ // dissmiss时候
+        
+        UIView *tagetView = [self.delegate targetDisMissView];
+        
+        //  缩放动画
+        if (tagetView && tagetView.window) {
+            UIImageView *imageView = [self.delegate disMissIamgeView];
+            
+            UIView * presentedView = [transitionContext viewForKey:UITransitionContextFromViewKey];
+            
+            CGRect fromFrame = [imageView convertRect:imageView.bounds toView:containnerView];
+            
+            imageView.frame = fromFrame;
+            
+            [containnerView addSubview:imageView];
+            
+            presentedView.alpha  = 0.0f;
+            
+            CGRect toframe = [tagetView convertRect:tagetView.bounds toView:containnerView];
+            
+            [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+                imageView.frame = toframe;
+            } completion:^(BOOL finished) {
+                //  等动画结束的时候,要告诉系统动画已经结束
+                [transitionContext completeTransition:YES];
+            }];
+            return;
+        }
+        
+        // 消失动画
         [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
             containnerView.alpha = 0.01;
             containnerView.transform = CGAffineTransformMakeScale(2.0f, 2.0f);
