@@ -37,7 +37,7 @@
         [containnerView addSubview:toView];
         toView.hidden = YES;
         
-        UIImageView *imageCell = [self.delegate animatePositonView];
+        UIImageView *imageCell = [self.delegate initalPositonAnimateViewWithPhotoAminator:self];
         UIImage *image = [imageCell.image copy];
         CGRect fromFrame = [imageCell convertRect:imageCell.bounds toView:containnerView];
         CGRect toFrame = [image getImageScreenFrame];
@@ -47,8 +47,9 @@
         imageView.frame = fromFrame;
         [containnerView addSubview:imageView];
         
-        if ([self.delegate respondsToSelector:@selector(presentingAnimaWillPresenting:)]) {
-             [self.delegate presentingAnimaWillPresenting:imageView];
+        // 即将动画
+        if ([self.delegate respondsToSelector:@selector(photoAminator:willPresentingWithView:)]) {
+             [self.delegate photoAminator:self willPresentingWithView:imageView];
         }
        
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7f initialSpringVelocity:0 options:0 animations:^{
@@ -57,9 +58,10 @@
             
             [toView layoutIfNeeded];
         } completion:^(BOOL finished) {
-            if ([self.delegate respondsToSelector:@selector(presentingAnimaDidCompleteWithView:)]) {
-                [self.delegate presentingAnimaDidCompleteWithView:imageView];
+            if ([self.delegate respondsToSelector:@selector(photoAminator:didPresectedWithView:)]) {
+                [self.delegate photoAminator:self didPresectedWithView:imageView];
             }
+            
             toView.hidden = NO;
             //  等动画结束的时候,要告诉系统动画已经结束
             [transitionContext completeTransition:YES];
@@ -69,11 +71,11 @@
     
     else{ // dissmiss时候
         
-        UIView *tagetView = [self.delegate targetDisMissView];
+        UIView *tagetView = [self.delegate dismissToViewWithPhotoAminator:self];
         
         //  缩放动画
         if (tagetView && tagetView.window) {
-            UIImageView *imageView = [self.delegate disMissIamgeView];
+            UIImageView *imageView = [self.delegate dismissFromImageViewWithPhotoAminator:self];
             
             UIView * presentedView = [transitionContext viewForKey:UITransitionContextFromViewKey];
             

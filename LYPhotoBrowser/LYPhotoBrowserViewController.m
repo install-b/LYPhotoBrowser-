@@ -89,6 +89,7 @@
     // 隐藏状态栏
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
+// 添加子控件
 - (void)setUpsubView {
     if (self.isHiddenBottomToolBar) {
         return;
@@ -195,7 +196,7 @@
 
 #pragma mark - LYPhotoAminatorDelegate 动画代理
 // 获取起始图片位置
-- (UIImageView *)animatePositonView {
+- (UIImageView *)initalPositonAnimateViewWithPhotoAminator:(LYPhotoAminator *)animator {
     UIImageView *imageView = self.startImageView;
     if (!imageView) {
         imageView = [[UIImageView alloc] init];
@@ -203,26 +204,28 @@
     }
     return imageView;
 }
+
 // 获取结束视图位置
-- (UIView *)targetDisMissView {
+- (UIView *)dismissToViewWithPhotoAminator:(LYPhotoAminator *)animator {
     if ([self.delegate respondsToSelector:@selector(viewForDisMissWithImageIndex:photoBrowserViewController:)]) {
         return [self.delegate viewForDisMissWithImageIndex:self.photoBrowserView.currentIndex photoBrowserViewController:self];
     }
     return nil;
 }
-
-- (UIImageView *)disMissIamgeView {
+// 获取结束要缩小的图
+- (UIImageView *)dismissFromImageViewWithPhotoAminator:(LYPhotoAminator *)animator {
     return self.photoBrowserView.currentImageView;
 }
 
 // 完成model 动画调用
-- (void)presentingAnimaDidCompleteWithView:(UIView *)animaView {
+- (void)photoAminator:(LYPhotoAminator *)animator didPresectedWithView:(UIView *)animaView {
     // 设置起始位置
     _finishedLoadImageView = YES;
     [self.photoBrowserView setInitalIndex:_initalIndex];
 }
+
 // 即将modal时候调用
-- (void)presentingAnimaWillPresenting:(UIView *)animaView {
+- (void)photoAminator:(LYPhotoAminator *)animator willPresentingWithView:(UIView *)animaView {
     self.startImageView = (UIImageView *)animaView;
 }
 #pragma mark - lazy load

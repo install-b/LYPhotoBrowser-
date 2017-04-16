@@ -10,7 +10,7 @@
 
 @protocol LYPhotoCellDelegate;
 
-#pragma mark - LYPhotoCell
+#pragma mark - *********  LYPhotoCell **********
 @interface LYPhotoCell : SGInfiniteViewCell
 
 /** url */
@@ -27,8 +27,7 @@
 
 @end
 
-/*************************************************/
-
+#pragma mark - *********  LYPhotoCellDelegate **********
 @protocol LYPhotoCellDelegate <NSObject>
 
 /**

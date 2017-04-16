@@ -22,7 +22,6 @@
 /** 背景底色 */
 @property (nonatomic,strong) UIBezierPath *backgoundPath;
 
-
 /** 开始角度 */
 @property (nonatomic,assign) CGFloat startAngle;
 
@@ -32,29 +31,32 @@
 @end
 
 @implementation LYProgressView
-
+#pragma mark - class
 + (instancetype)progressViewWithWidth:(CGFloat)width {
-    
-    LYProgressView *progressView = [[self alloc] initWithFrame:CGRectMake(0, 0, width, width)];
-    
-    progressView.backgroundColor = [UIColor clearColor];
-    
-    return progressView;
+    return [[self alloc] initWithFrame:CGRectMake(0, 0, width, width)];
 }
-
 + (instancetype)progressView {
-    
     return [self progressViewWithWidth:50.0];
 }
-
-
+#pragma mark - init
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.backgroundColor = [UIColor clearColor];
+}
+#pragma mark - setter
 - (void)setProgress:(CGFloat)progress {
     
     _progress = progress;
     
     [self setNeedsDisplay];
 }
-
+#pragma mark - drawing
 - (void)drawRect:(CGRect)rect {
     
     // 背景颜色
@@ -66,8 +68,6 @@
     [[UIColor whiteColor] set];
     [self.outCirclePath stroke];
     
-    
-    
     // 进度圈
     self.endAngle = _progress * M_PI * 2 + self.startAngle;
     
@@ -78,10 +78,8 @@
     [[UIColor colorWithWhite:1 alpha:0.9] set];
     
     [self.inCirclePath fill];
-    
-    
 }
-
+#pragma mark - getter
 - (CGPoint)centerP {
     
     if (!_centerP.x) {
@@ -111,7 +109,6 @@
 }
 
 - (CGFloat)startAngle {
-    
     return - M_PI_2;
 }
 - (CGFloat)width {

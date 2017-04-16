@@ -18,5 +18,4 @@
 /** 进度值 */
 @property (nonatomic,assign) CGFloat progress;
 
-
 @end

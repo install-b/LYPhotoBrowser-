@@ -32,6 +32,10 @@
     }
     return self;
 }
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self setUpSubViews];
+}
 #pragma mark setups
 - (void)setUpSubViews {
     
