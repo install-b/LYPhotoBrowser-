@@ -14,8 +14,6 @@
 @interface LYPhotoBrowserView ()<SGInfiniteViewDelegte,SGInfiniteViewDatasource,LYPhotoCellDelegate>
 /** 滚动视图 */
 @property(nonatomic,weak) SGInfiniteView *infiniteView;
-/** 索引标签 */
-@property(nonatomic,weak) UILabel *indexLable;
 
 @end
 
@@ -56,7 +54,6 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
 /** 将要展示了第index 视图 */
 - (void)viewForInfiniteView:(SGInfiniteView *)infiniteView willShowIndex:(NSInteger)index {
     // 实时更新索引值
-    self.currentIndex = index;
     [self.delegate photoBrowserView:self willShowIndex:index];
 }
 /** 已经展示了第index 视图 */
@@ -64,6 +61,11 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
     [self.delegate photoBrowserView:self didShowIndex:index];
 }
 #pragma mark - LYPhotoCellDelegate
+- (void)didSingleTapPhotoCell:(LYPhotoCell *)cell {
+    if ([self.delegate respondsToSelector:@selector(didSingleTapPhotoBrowserView:)]) {
+        [self.delegate didSingleTapPhotoBrowserView:self];
+    }
+}
 // 图片下载的进度progress
 - (void)photoCell:(LYPhotoCell *)cell loadImageProgress:(CGFloat)progress {
     // code here do something when image downloading
@@ -84,23 +86,6 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
         [self.infiniteView setScrollEnable:YES];
     }
 }
-#pragma mark - clisk events
-// 保存图片
-- (void)clickSaveButton:(UIButton *)sender{
-    
-    if ([self.delegate respondsToSelector:@selector(photoBrowserView:saveImage:)]) {
-        UIImage *image = [(LYPhotoCell *)[self.infiniteView currentVisiableView] imageView].image;
-        [self.delegate photoBrowserView:self saveImage:image];
-    }
-}
-#pragma mark - setter
-// 更新索引
-- (void)setCurrentIndex:(NSInteger)currentIndex {
-    _currentIndex = currentIndex;
-    _indexLable.text = [NSString stringWithFormat:@"%zd/%zd", currentIndex + 1,[self.delegate numberOfItemsForInfiniteSlideView:self]];
-}
-
-
 #pragma mark - public mothoeds
 // 跳转到指定的位置
 - (void)scrollToIndexItem:(NSUInteger)index {
@@ -110,7 +95,6 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
 - (void)setInitalIndex:(NSUInteger)initalIndex {
     [self.infiniteView scrollToIndexItem:initalIndex anima:NO];
     [self.infiniteView sg_reloadData];
-    self.currentIndex = initalIndex;
 }
 - (void)setInfifiteCycleEnable:(BOOL)enable {
     [self.infiniteView setInfinite:enable];
@@ -134,39 +118,6 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
         make.top.left.bottom.right.equalTo(weakSelf);
     }];
     
-    // 索引标签
-    UILabel *indexLable = [[UILabel alloc] init];
-    self.indexLable = indexLable;
-    [self addSubview:indexLable];
-    indexLable.textColor = [UIColor whiteColor];
-    indexLable.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-    indexLable.layer.cornerRadius = 5;
-    indexLable.layer.masksToBounds = YES;
-    indexLable.textAlignment = NSTextAlignmentCenter;
-    
-    // 保存按钮
-    UIButton *saveButton = [[UIButton alloc] init];
-    [self addSubview:saveButton];
-    saveButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-    saveButton.layer.cornerRadius = 5;
-    saveButton.layer.masksToBounds = YES;
-    [saveButton setTitle:@"保存" forState:UIControlStateNormal];
-    [saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [saveButton addTarget:self action:@selector(clickSaveButton:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [indexLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakSelf);
-        make.bottom.equalTo(weakSelf).offset(-20);
-        make.width.equalTo(@(49));
-    }];
-    
-    [saveButton sizeToFit];
-    CGFloat width = saveButton.bounds.size.width + 20 ;
-    [saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf).offset(-20);
-        make.centerY.equalTo(indexLable);
-        make.width.equalTo(@(width));
-    }];
 }
 
 @end

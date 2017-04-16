@@ -24,10 +24,8 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-  
     // 照片浏览器
     LYPhotoBrowserViewController *pbVc = [[LYPhotoBrowserViewController alloc] init];
-    //[pbVc setInfiniteCycleBrowserEnable:NO];
     pbVc.imagePaths = self.dataSource;
     pbVc.delegate = self;
     UIImageView *imageView = self.imageView;
@@ -58,6 +56,7 @@
     [self.view addSubview:imageView];
     imageView.center = self.view.center;
     imageView.backgroundColor = [UIColor redColor];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
     // 设置图片
     [imageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[starIndex]]  placeholderImage:nil options:0 progress:nil completed:nil];
     self.imageView = imageView;

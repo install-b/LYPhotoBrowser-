@@ -30,6 +30,14 @@
 /*************************************************/
 
 @protocol LYPhotoCellDelegate <NSObject>
+
+/**
+ 单击了cell
+
+ @param cell 图片cell
+ */
+- (void)didSingleTapPhotoCell:(LYPhotoCell *)cell;
+
 /**
  cell 加载图片的进度
  

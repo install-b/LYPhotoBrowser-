@@ -11,7 +11,6 @@
 #import "UIImageView+WebCache.h"
 #import "UIImage+ScreenSize.h"
 #import "LYProgressView.h"
-#import "UIViewController+LYVisible.h"
 
 @interface LYPhotoCell () <UIScrollViewDelegate>
     
@@ -44,13 +43,19 @@
     scrollView.delegate = self;
     
     UIImageView *imageView = [[UIImageView alloc] init];
+    //imageView.contentMode = UIViewContentModeScaleAspectFit;
     [scrollView addSubview:imageView];
     self.imageView = imageView;
+    
+    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap:)];
+    [singleTapGestureRecognizer setNumberOfTapsRequired:1];
+    [self addGestureRecognizer:singleTapGestureRecognizer];
     
     UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTap:)];
     [doubleTapGestureRecognizer setNumberOfTapsRequired:2];
     [imageView addGestureRecognizer:doubleTapGestureRecognizer];
     
+    [singleTapGestureRecognizer requireGestureRecognizerToFail:doubleTapGestureRecognizer];
     
     LYProgressView *progressView = [[LYProgressView alloc] init];
     [self addSubview:progressView];
@@ -146,7 +151,12 @@
         [self.delegate photoCell:self didLoadImage:image];
     }
 }
-#pragma mark - double tap
+#pragma mark - tap action 
+- (void)singleTap:(UIGestureRecognizer*)gestureRecognizer {
+    if ([self.delegate respondsToSelector:@selector(didSingleTapPhotoCell:)]) {
+        [self.delegate didSingleTapPhotoCell:self];
+    }
+}
 - (void)doubleTap:(UITapGestureRecognizer *)tap {
     
     CGFloat maxZoom = self.scrollView.maximumZoomScale;
