@@ -26,7 +26,7 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     // 照片浏览器
     LYPhotoBrowserViewController *pbVc = [[LYPhotoBrowserViewController alloc] init];
-    pbVc.imagePaths = self.dataSource;
+    //pbVc.imagePaths = self.dataSource;
     pbVc.delegate = self;
     UIImageView *imageView = self.imageView;
     

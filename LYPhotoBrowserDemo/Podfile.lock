@@ -1,23 +1,23 @@
 PODS:
-  - Masonry (1.0.2)
-  - SDWebImage (4.0.0):
-    - SDWebImage/Core (= 4.0.0)
-  - SDWebImage/Core (4.0.0)
-  - SGInfiniteView (0.1.1)
-  - SVProgressHUD (2.1.2)
+  - Masonry (1.1.0)
+  - SDWebImage (4.2.2):
+    - SDWebImage/Core (= 4.2.2)
+  - SDWebImage/Core (4.2.2)
+  - SGInfiniteView (0.1.2)
+  - SVProgressHUD (2.2.2)
 
 DEPENDENCIES:
-  - Masonry
-  - SDWebImage
-  - SGInfiniteView
+  - Masonry (= 1.1.0)
+  - SDWebImage (= 4.2.2)
+  - SGInfiniteView (= 0.1.2)
   - SVProgressHUD
 
 SPEC CHECKSUMS:
-  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
-  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
-  SGInfiniteView: 00482ad515ef76c26ce41bb2dec88f44deed9577
-  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
+  SGInfiniteView: 768ad4a08e76bd64e9c4ce9108833904f1093de7
+  SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
 
-PODFILE CHECKSUM: 18bbefac100f6ce0bdf66252aa0997a8f62beef7
+PODFILE CHECKSUM: fac176efe61d48114933f6d0fcce175f79442065
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.4.0.beta.2
