@@ -20,6 +20,7 @@
 		5FF794D11E7417A4001F5522 /* SGPictureTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF794C91E7417A4001F5522 /* SGPictureTool.m */; };
 		5FF794D21E7417A4001F5522 /* UIImage+ScreenSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF794CB1E7417A4001F5522 /* UIImage+ScreenSize.m */; };
 		917807688B170D16096EC5D3 /* libPods-LYPhotoBrowserDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6625701942B0F31A642E173 /* libPods-LYPhotoBrowserDemo.a */; };
+		A70562161FE220F900305C28 /* LYPoto.m in Sources */ = {isa = PBXBuildFile; fileRef = A70562151FE220F900305C28 /* LYPoto.m */; };
 		A706AA381E7E4670008D20C9 /* LYProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A706AA371E7E4670008D20C9 /* LYProgressView.m */; };
 		A7CAB8991EA30DAD0044D554 /* LYPhotoBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CAB8981EA30DAD0044D554 /* LYPhotoBottomToolBar.m */; };
 /* End PBXBuildFile section */
@@ -48,6 +49,8 @@
 		5FF794C91E7417A4001F5522 /* SGPictureTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGPictureTool.m; sourceTree = "<group>"; };
 		5FF794CA1E7417A4001F5522 /* UIImage+ScreenSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ScreenSize.h"; sourceTree = "<group>"; };
 		5FF794CB1E7417A4001F5522 /* UIImage+ScreenSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ScreenSize.m"; sourceTree = "<group>"; };
+		A70562141FE220F900305C28 /* LYPoto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LYPoto.h; sourceTree = "<group>"; };
+		A70562151FE220F900305C28 /* LYPoto.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LYPoto.m; sourceTree = "<group>"; };
 		A706AA361E7E4670008D20C9 /* LYProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYProgressView.h; sourceTree = "<group>"; };
 		A706AA371E7E4670008D20C9 /* LYProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYProgressView.m; sourceTree = "<group>"; };
 		A7CAB8971EA30DAD0044D554 /* LYPhotoBottomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYPhotoBottomToolBar.h; sourceTree = "<group>"; };
@@ -102,6 +105,8 @@
 				5FF794AA1E741791001F5522 /* AppDelegate.m */,
 				5FF794AC1E741791001F5522 /* ViewController.h */,
 				5FF794AD1E741791001F5522 /* ViewController.m */,
+				A70562141FE220F900305C28 /* LYPoto.h */,
+				A70562151FE220F900305C28 /* LYPoto.m */,
 				5FF794AF1E741791001F5522 /* Main.storyboard */,
 				5FF794B21E741791001F5522 /* Assets.xcassets */,
 				5FF794B41E741791001F5522 /* LaunchScreen.storyboard */,
@@ -291,6 +296,7 @@
 				5FF794D11E7417A4001F5522 /* SGPictureTool.m in Sources */,
 				5FF794CF1E7417A4001F5522 /* LYPhotoCell.m in Sources */,
 				A706AA381E7E4670008D20C9 /* LYProgressView.m in Sources */,
+				A70562161FE220F900305C28 /* LYPoto.m in Sources */,
 				5FF794CE1E7417A4001F5522 /* LYPhotoBrowserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "LYPhotoBrowserViewController.h"
+#import "LYPoto.h"
 #import <SVProgressHUD.h>
 @interface ViewController () <LYPhotoBrowserViewControllerDelegate>
 /** imageView */
@@ -26,7 +26,7 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     // 照片浏览器
     LYPhotoBrowserViewController *pbVc = [[LYPhotoBrowserViewController alloc] init];
-    //pbVc.imagePaths = self.dataSource;
+    pbVc.dataSource = [LYPoto potoFromImageURLs:[self dataSource]];
     pbVc.delegate = self;
     UIImageView *imageView = self.imageView;
     
