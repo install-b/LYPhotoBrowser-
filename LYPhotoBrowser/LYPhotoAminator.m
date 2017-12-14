@@ -23,7 +23,7 @@
 #pragma mark - <UIViewControllerAnimatedTransitioning> 负责如何展示动画消失
 //设置动画的时间
 - (NSTimeInterval)transitionDuration:(nullable id <UIViewControllerContextTransitioning>)transitionContext{
-    return 0.25f;
+    return 0.45f;
 }
 // This method can only  be a nop if the transition is interactive and not a percentDriven interactive transition.
 //设置怎样展示动画 无论是弹出还是销毁都会调用这个方法来设置动画
@@ -35,6 +35,7 @@
         //    1.获取toView
         UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
         [containnerView addSubview:toView];
+        containnerView.backgroundColor = [UIColor blackColor];
         toView.hidden = YES;
         
         UIImageView *imageCell = [self.delegate initalPositonAnimateViewWithPhotoAminator:self];
@@ -44,6 +45,7 @@
         
         // modal图片动画
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.contentMode = imageCell.contentMode;
         imageView.frame = fromFrame;
         [containnerView addSubview:imageView];
         
@@ -51,22 +53,19 @@
         if ([self.delegate respondsToSelector:@selector(photoAminator:willPresentingWithView:)]) {
              [self.delegate photoAminator:self willPresentingWithView:imageView];
         }
-       
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7f initialSpringVelocity:0 options:0 animations:^{
+        [UIView animateWithDuration:[self transitionDuration:transitionContext]  delay:0.01 options:0 animations:^{
             containnerView.alpha = 1.0;
             imageView.frame = toFrame;
-            
-            [toView layoutIfNeeded];
         } completion:^(BOOL finished) {
             if ([self.delegate respondsToSelector:@selector(photoAminator:didPresectedWithView:)]) {
                 [self.delegate photoAminator:self didPresectedWithView:imageView];
             }
             
             toView.hidden = NO;
+            containnerView.backgroundColor = [UIColor clearColor];
             //  等动画结束的时候,要告诉系统动画已经结束
             [transitionContext completeTransition:YES];
         }];
-        
     }
     
     else{ // dissmiss时候
@@ -76,7 +75,7 @@
         //  缩放动画
         if (tagetView && tagetView.window) {
             UIImageView *imageView = [self.delegate dismissFromImageViewWithPhotoAminator:self];
-            
+            imageView.contentMode = tagetView.contentMode;
             UIView * presentedView = [transitionContext viewForKey:UITransitionContextFromViewKey];
             
             CGRect fromFrame = [imageView convertRect:imageView.bounds toView:containnerView];

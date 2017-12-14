@@ -11,6 +11,7 @@
 #import "UIImageView+WebCache.h"
 #import "UIImage+ScreenSize.h"
 #import "LYProgressView.h"
+#import "LYPhotoBrowserViewController.h"
 
 @interface LYPhotoCell () <UIScrollViewDelegate>
     
@@ -92,32 +93,36 @@
 }
 
 #pragma mark - setter
-- (void)setImagePath:(NSString *)imagePath {
-    // 属性赋值
-    _imagePath = imagePath;
-    
+//- (void)setImagePath:(NSString *)imagePath {
+//    // 属性赋值
+//    _imagePath = imagePath;
+//
+//    // 重用初始化
+//    [self reuseSetUp];
+//
+//    // 加载图片
+//    [self loadImageWithImageURL:imagePath];
+//}
+
+- (void)setPhoto:(id<LYPhotoDataSourceProtocol>)photo {
+    _photo = photo;
     // 重用初始化
     [self reuseSetUp];
     
-    // 加载图片
-    [self loadImageWithImageURL:imagePath];
-}
-
-#pragma mark - load image
-- (void)loadImageWithImageURL:(NSString *)imagePath {
-    // 加载图片
-    // 本地加载
-    if (![imagePath containsString:@"://"]) {
-        UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    // 内存中图片 // 磁盘中获取
+    UIImage *image = [photo ly_image] ? : [UIImage imageWithContentsOfFile:[photo ly_imageLocalPath]];
+    if ([image isKindOfClass:[UIImage class]]) {
+        self.imageView.image = image;
         [self didLoadImage:image];
         return;
     }
+    
     
     // 网络加载 SDWebImage
     __weak typeof(self) weakSelf = self;
     __block CGFloat preogress;
     
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize ,NSURL *url) {
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:[photo ly_imageURL]] placeholderImage:[photo ly_placeholderImage] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize ,NSURL *url) {
         preogress = 1.0 * receivedSize / expectedSize;
         // 经度是在子线程回调的
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -130,7 +135,40 @@
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [weakSelf didLoadImage:image];
     }];
+    
+    // 网络加载图片
+    //[self loadImageWithImageURL:[]];
+
 }
+
+#pragma mark - load image
+//- (void)loadImageWithImageURL:(NSString *)imagePath {
+//    // 加载图片
+//    // 本地加载
+//    if (![imagePath containsString:@"://"]) {
+//        UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+//        [self didLoadImage:image];
+//        return;
+//    }
+//    
+//    // 网络加载 SDWebImage
+//    __weak typeof(self) weakSelf = self;
+//    __block CGFloat preogress;
+//    
+//    [self.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize ,NSURL *url) {
+//        preogress = 1.0 * receivedSize / expectedSize;
+//        // 经度是在子线程回调的
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [weakSelf.progreView setProgress:preogress];
+//            if ([weakSelf.delegate respondsToSelector:@selector(photoCell:loadImageProgress:)]) {
+//                [weakSelf.delegate photoCell:weakSelf loadImageProgress:preogress];
+//            }
+//        });
+//        
+//    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        [weakSelf didLoadImage:image];
+//    }];
+//}
 // 图片加载完毕
 - (void)didLoadImage:(UIImage *)image {
     

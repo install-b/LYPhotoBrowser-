@@ -9,28 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @class LYPhotoBrowserView;
-@protocol LYPhotoBrowserViewDelegate <NSObject>
+@protocol LYPhotoDataSourceProtocol;
+@protocol LYPhotoBrowserViewDelegate;
 
-@required
-
-// 共有多少图片要展示
-- (NSInteger)numberOfItemsForInfiniteSlideView:(LYPhotoBrowserView *)photoBrowserView;
-
-// 返回index值下的图片url
-- (NSString *)imageURLForPhotoBrowserView:(LYPhotoBrowserView *)photoBrowserView inIndex:(NSInteger)index;
-
-// 已经加载了index对应的图片
-- (void)didLoadStartImageIndex:(NSInteger)startIndex photoBrowserView:(LYPhotoBrowserView *)photoBrowserView;
-
-// 单击了视图
-- (void)didSingleTapPhotoBrowserView:(LYPhotoBrowserView *)browserView;
-
-// 即将展示的视图索引
-- (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView willShowIndex:(NSInteger)index;
-
-// 已近展示了第几张图
-- (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView didShowIndex:(NSInteger)index;
-@end
 
 @interface LYPhotoBrowserView : UIView
 /** 当前显示的图片的索引 */
@@ -72,4 +53,28 @@
  */
 - (UIImageView *)currentImageView;
 
+@end
+
+
+
+
+@protocol LYPhotoBrowserViewDelegate <NSObject>
+@required
+// 共有多少图片要展示
+- (NSInteger)numberOfItemsForInfiniteSlideView:(LYPhotoBrowserView *)photoBrowserView;
+
+// 展示的图片
+- (id <LYPhotoDataSourceProtocol>)photoForPhotoBrowserView:(LYPhotoBrowserView *)photoBrowserView inIndex:(NSInteger)index;
+
+// 已经加载了index对应的图片
+- (void)didLoadStartImageIndex:(NSInteger)startIndex photoBrowserView:(LYPhotoBrowserView *)photoBrowserView;
+
+// 单击了视图
+- (void)didSingleTapPhotoBrowserView:(LYPhotoBrowserView *)browserView;
+
+// 即将展示的视图索引
+- (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView willShowIndex:(NSInteger)index;
+
+// 已近展示了第几张图
+- (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView didShowIndex:(NSInteger)index;
 @end

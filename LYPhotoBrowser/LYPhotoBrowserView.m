@@ -44,10 +44,13 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
 
 /** 根据所给的索引值 返回要展示的view（不用设置，自动设置为控件的大小） */
 - (UIView *)viewForInfiniteSlideView:(SGInfiniteView *)infiniteView inIndex:(NSInteger)index {
-    LYPhotoCell *cell = (LYPhotoCell *)[infiniteView sg_dequeueReusableCellWithReuseIdentifier:ID]; // 重用cell
+    // 重用cell
+    LYPhotoCell *cell = (LYPhotoCell *)[infiniteView sg_dequeueReusableCellWithReuseIdentifier:ID];
     cell.delegate = self;
     cell.cellIndex = index;
-    cell.imagePath =  [self.delegate imageURLForPhotoBrowserView:self inIndex:index];// 传递模型
+    // 传递模型
+    cell.photo = [self.delegate photoForPhotoBrowserView:self inIndex:index];
+    //cell.imagePath =  [self.delegate imageURLForPhotoBrowserView:self inIndex:index];
     return cell;
 }
 #pragma mark - SGInfiniteViewDelegte
@@ -55,6 +58,7 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
 - (void)viewForInfiniteView:(SGInfiniteView *)infiniteView willShowIndex:(NSInteger)index {
     // 实时更新索引值
     [self.delegate photoBrowserView:self willShowIndex:index];
+    self.currentIndex = index;
 }
 /** 已经展示了第index 视图 */
 - (void)viewForInfiniteView:(SGInfiniteView *)infiniteView didShowIndex:(NSInteger)index{
@@ -95,9 +99,14 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
 - (void)setInitalIndex:(NSUInteger)initalIndex {
     [self.infiniteView scrollToIndexItem:initalIndex anima:NO];
     [self.infiniteView sg_reloadData];
+    self.currentIndex = initalIndex;
 }
 - (void)setInfifiteCycleEnable:(BOOL)enable {
     [self.infiniteView setInfinite:enable];
+}
+// 更新索引
+- (void)setCurrentIndex:(NSInteger)currentIndex {
+    _currentIndex = currentIndex;
 }
 #pragma mark - add subviews
 - (void)setUpSubview {
@@ -117,7 +126,6 @@ static NSString *ID = @"InfiniteView_picture_cell_reuseId";
     [infiniteView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(weakSelf);
     }];
-    
 }
 
 @end

@@ -75,6 +75,13 @@
     }
     return self;
 }
+- (instancetype)initWithDataSource:(NSArray<LYPhotoDataSourceProtocol> *)dataSource {
+    if (self = [self init]) {
+        ///
+        _dataSource = dataSource;
+    }
+    return self;
+}
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -139,7 +146,7 @@
     
     // 加载视图 初始化index
     [self view];
-    [self.bottomToolBar setCurrentIndex:imageIndex totalItemsCount:self.imagePaths.count];
+    [self.bottomToolBar setCurrentIndex:imageIndex totalItemsCount:self.dataSource.count];
     
     //modal 浏览器
     [[UIViewController rootVisibaleViewController] presentViewController:self animated:YES completion:nil];
@@ -156,13 +163,15 @@
 #pragma mark - LYPhotoBrowserViewDelegate 视图代理
 // 获取图片个数的总数
 - (NSInteger)numberOfItemsForInfiniteSlideView:(LYPhotoBrowserView *)photoBrowserView {
-    return self.imagePaths.count;
+    return self.dataSource.count;
 }
-// 获取图片URL
-- (NSString *)imageURLForPhotoBrowserView:(LYPhotoBrowserView *)photoBrowserView inIndex:(NSInteger)index {
-    return self.imagePaths[index];
+//// 获取图片URL
+//- (NSString *)imageURLForPhotoBrowserView:(LYPhotoBrowserView *)photoBrowserView inIndex:(NSInteger)index {
+//    return [self.dataSource[index] ly_imageURL];
+//}
+- (id <LYPhotoDataSourceProtocol>)photoForPhotoBrowserView:(LYPhotoBrowserView *)photoBrowserView inIndex:(NSInteger)index {
+    return self.dataSource[index];
 }
-
 // 单击视图action
 - (void)didSingleTapPhotoBrowserView:(LYPhotoBrowserView *)browserView {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -180,7 +189,7 @@
 // 即将展示的视图索引
 - (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView willShowIndex:(NSInteger)index {
     
-    [self.bottomToolBar setCurrentIndex:index totalItemsCount:self.imagePaths.count];
+    [self.bottomToolBar setCurrentIndex:index totalItemsCount:self.dataSource.count];
     
     if ([self.delegate respondsToSelector:@selector(photoBrowserView:willShowIndex:)]) {
         [self.delegate photoBrowserViewController:self willShowIndex:index];

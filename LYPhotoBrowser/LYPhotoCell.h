@@ -9,12 +9,16 @@
 #import "SGInfiniteView/SGInfiniteViewCell.h"
 
 @protocol LYPhotoCellDelegate;
+@protocol LYPhotoDataSourceProtocol;
 
 #pragma mark - *********  LYPhotoCell **********
 @interface LYPhotoCell : SGInfiniteViewCell
 
-/** url */
-@property(nonatomic,copy) NSString *imagePath;
+///** url */
+//@property(nonatomic,copy) NSString *imagePath;
+
+/** 模型 */
+@property (nonatomic,strong) id <LYPhotoDataSourceProtocol> photo;
 
 /** imageView */
 @property(nonatomic,weak) UIImageView *imageView;

@@ -25,5 +25,4 @@
 -  (CGSize)getImageScreenSize {
     return [self getImageScreenFrame].size;
 }
-
 @end

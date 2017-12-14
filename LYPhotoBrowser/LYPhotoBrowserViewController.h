@@ -8,6 +8,50 @@
 
 #import <UIKit/UIKit.h>
 
+
+/**
+ 图片浏览数据源 协议
+ */
+@protocol LYPhotoDataSourceProtocol <NSObject>
+@required
+
+/**
+ 展示的图片来源为内存
+ 优先展示此图片
+ 可以为空
+ */
+- (UIImage *)ly_image;
+
+/**
+ 加载的图片为网络图片时 的占位图
+ */
+- (UIImage *)ly_placeholderImage;
+
+/**
+ 展示的图片来源为本地磁盘
+ 当‘- ly_image’方法返回空时候 会调用该方法
+ 也可以为空
+ */
+- (NSString *)ly_imageLocalPath;
+
+
+/**
+ 展示的图片来源为网络
+ 当 内存图片和本地资源都返回空时  调用
+ 不能为空
+ */
+- (NSString *)ly_imageURL;
+
+@end
+
+
+
+
+
+
+
+
+
 @protocol LYPhotoBrowserViewControllerDelegate;
 #pragma mark - --------- LYPhotoBrowserViewController --------
 /**
@@ -15,8 +59,13 @@
  */
 @interface LYPhotoBrowserViewController : UIViewController
 
+/**
+ 构造方法 初始化数据源
+ */
+- (instancetype)initWithDataSource:(NSArray <LYPhotoDataSourceProtocol> *)dataSource;
+
 /** 数据源 */
-@property(nonatomic,strong) NSArray<NSString *> *imagePaths;
+@property (nonatomic,strong) NSArray <LYPhotoDataSourceProtocol> * dataSource;
 
 /** delegate */
 @property (nonatomic,weak) id <LYPhotoBrowserViewControllerDelegate> delegate;
@@ -47,6 +96,14 @@
  */
 - (void)presentedWithView:(UIImageView *)imageView imageIndex:(NSInteger)imageIndex;
 @end
+
+
+
+
+
+
+
+
 
 #pragma mark - --------- LYPhotoBrowserViewControllerDelegate --------
 @protocol LYPhotoBrowserViewControllerDelegate <NSObject>

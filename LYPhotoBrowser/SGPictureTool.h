@@ -22,7 +22,6 @@
  *
  *  @param image 要保存的图片
  */
-
 + (void)sg_saveAImage:(UIImage *)image  error:(void(^)(NSError *error))errorBlock;
 
 /**
