@@ -168,7 +168,6 @@
 				5FF7949F1E741791001F5522 /* Sources */,
 				5FF794A01E741791001F5522 /* Frameworks */,
 				5FF794A11E741791001F5522 /* Resources */,
-				636CB079BA7C33D588345DE4 /* [CP] Embed Pods Frameworks */,
 				89B12A04ECEF79754A1CB562 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -228,21 +227,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		636CB079BA7C33D588345DE4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LYPhotoBrowserDemo/Pods-LYPhotoBrowserDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		89B12A04ECEF79754A1CB562 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -254,7 +238,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
