@@ -73,6 +73,6 @@
 }
 
 - (void)setCurrentIndex:(NSInteger)currentIndex totalItemsCount:(NSInteger)totalCount {
-    _indexLable.text = [NSString stringWithFormat:@"%zd/%zd", currentIndex + 1,totalCount];
+    _indexLable.text = [NSString stringWithFormat:@"%d/%d", (int)(currentIndex + 1),(int)totalCount];
 }
 @end

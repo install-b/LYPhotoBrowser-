@@ -77,4 +77,5 @@
 
 // 已近展示了第几张图
 - (void)photoBrowserView:(LYPhotoBrowserView *)photoBrowserView didShowIndex:(NSInteger)index;
+
 @end

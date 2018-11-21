@@ -8,7 +8,7 @@
 
 #import "LYPhotoBrowserView.h"
 #import "Masonry.h"
-#import "SGInfiniteView/SGInfiniteView.h"
+#import "SGInfiniteView.h"
 #import "LYPhotoCell.h"
 
 @interface LYPhotoBrowserView ()<SGInfiniteViewDelegte,SGInfiniteViewDatasource,LYPhotoCellDelegate>

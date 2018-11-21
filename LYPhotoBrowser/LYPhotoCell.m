@@ -27,8 +27,8 @@
 @end
 
 @implementation LYPhotoCell
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
+- (instancetype)initWithFrame:(CGRect)frame reusedIdentifier:(NSString *)identifier{
+    if (self = [super initWithFrame:frame reusedIdentifier:identifier]) {
         [self setUpSubViews];
     }
     return self;
@@ -90,19 +90,10 @@
     self.scrollView.minimumZoomScale = 1.0;
     self.scrollView.maximumZoomScale = 1.0;
     self.imageScreenFrame = CGRectZero;
+    
 }
 
 #pragma mark - setter
-//- (void)setImagePath:(NSString *)imagePath {
-//    // 属性赋值
-//    _imagePath = imagePath;
-//
-//    // 重用初始化
-//    [self reuseSetUp];
-//
-//    // 加载图片
-//    [self loadImageWithImageURL:imagePath];
-//}
 
 - (void)setPhoto:(id<LYPhotoDataSourceProtocol>)photo {
     _photo = photo;
@@ -135,40 +126,10 @@
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [weakSelf didLoadImage:image];
     }];
-    
-    // 网络加载图片
-    //[self loadImageWithImageURL:[]];
 
 }
 
 #pragma mark - load image
-//- (void)loadImageWithImageURL:(NSString *)imagePath {
-//    // 加载图片
-//    // 本地加载
-//    if (![imagePath containsString:@"://"]) {
-//        UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
-//        [self didLoadImage:image];
-//        return;
-//    }
-//    
-//    // 网络加载 SDWebImage
-//    __weak typeof(self) weakSelf = self;
-//    __block CGFloat preogress;
-//    
-//    [self.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize ,NSURL *url) {
-//        preogress = 1.0 * receivedSize / expectedSize;
-//        // 经度是在子线程回调的
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [weakSelf.progreView setProgress:preogress];
-//            if ([weakSelf.delegate respondsToSelector:@selector(photoCell:loadImageProgress:)]) {
-//                [weakSelf.delegate photoCell:weakSelf loadImageProgress:preogress];
-//            }
-//        });
-//        
-//    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        [weakSelf didLoadImage:image];
-//    }];
-//}
 // 图片加载完毕
 - (void)didLoadImage:(UIImage *)image {
     
@@ -177,6 +138,7 @@
         self.imageView.image = image;
         self.imageView.frame = [image getImageScreenFrame];
         self.imageScreenFrame = self.imageView.frame;
+        self.scrollView.contentSize = self.imageView.frame.size;
         [self bringSubviewToFront:self.imageView];
         self.imageView.userInteractionEnabled = YES;
         CGFloat scale = image.size.width / [UIScreen mainScreen].bounds.size.width;
@@ -187,6 +149,8 @@
             scale = 3.0f;
         }
         self.scrollView.maximumZoomScale = scale;
+    }else {
+        self.imageView.frame = [self.imageView.image getImageScreenFrame];
     }
     
     if ([self.delegate respondsToSelector:@selector(photoCell:didLoadImage:)]) {
@@ -278,9 +242,9 @@
 }
 // 缩小的时候
 - (void)dealShrinkZoom:(UIScrollView *)scrollView {
-    
-    CGFloat zoom = (1 - scrollView.zoomScale) * 0.5;
-    
-    scrollView.contentOffset = CGPointMake(- self.imageScreenFrame.size.width * zoom, - self.imageScreenFrame.size.height * zoom);
+    if (self.imageScreenFrame.size.height < SCREEN_H) {
+        CGFloat zoom = (1 - scrollView.zoomScale) * 0.5;
+        scrollView.contentOffset = CGPointMake(- self.imageScreenFrame.size.width * zoom, - self.imageScreenFrame.size.height * zoom);
+    }
 }
 @end

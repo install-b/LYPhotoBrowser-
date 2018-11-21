@@ -6,7 +6,7 @@
 //  Copyright © 2016年 hhly. All rights reserved.
 //
 
-#import "SGInfiniteView/SGInfiniteViewCell.h"
+#import "SGInfiniteViewCell.h"
 
 @protocol LYPhotoCellDelegate;
 @protocol LYPhotoDataSourceProtocol;

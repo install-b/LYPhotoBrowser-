@@ -23,7 +23,7 @@
 #pragma mark - <UIViewControllerAnimatedTransitioning> 负责如何展示动画消失
 //设置动画的时间
 - (NSTimeInterval)transitionDuration:(nullable id <UIViewControllerContextTransitioning>)transitionContext{
-    return 0.45f;
+    return 0.25f;
 }
 // This method can only  be a nop if the transition is interactive and not a percentDriven interactive transition.
 //设置怎样展示动画 无论是弹出还是销毁都会调用这个方法来设置动画
@@ -71,11 +71,13 @@
     else{ // dissmiss时候
         
         UIView *tagetView = [self.delegate dismissToViewWithPhotoAminator:self];
-        
+        tagetView.hidden = YES;
         //  缩放动画
         if (tagetView && tagetView.window) {
+            tagetView.hidden = YES;
             UIImageView *imageView = [self.delegate dismissFromImageViewWithPhotoAminator:self];
             imageView.contentMode = tagetView.contentMode;
+            imageView.layer.masksToBounds = YES;
             UIView * presentedView = [transitionContext viewForKey:UITransitionContextFromViewKey];
             
             CGRect fromFrame = [imageView convertRect:imageView.bounds toView:containnerView];
@@ -91,20 +93,32 @@
             [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
                 imageView.frame = toframe;
             } completion:^(BOOL finished) {
+                tagetView.hidden = NO;
                 //  等动画结束的时候,要告诉系统动画已经结束
                 [transitionContext completeTransition:YES];
             }];
             return;
         }
-        
+        NSTimeInterval  durationTime = [self transitionDuration:transitionContext] * 0.5;
         // 消失动画
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-            containnerView.alpha = 0.01;
-            containnerView.transform = CGAffineTransformMakeScale(2.0f, 2.0f);
-            [containnerView layoutIfNeeded];
+        [UIView animateWithDuration:durationTime  animations:^{
+            containnerView.alpha = 0.05;
+            containnerView.transform = CGAffineTransformMakeScale(1.30f, 1.30f);
+            //[containnerView layoutIfNeeded];
         }completion:^(BOOL finished) {
-            //  等动画结束的时候,要告诉系统动画已经结束
-            [transitionContext completeTransition:YES];
+            [UIView animateWithDuration:durationTime animations:^{
+                containnerView.alpha = 0.001;
+                containnerView.transform = CGAffineTransformMakeScale(130.0f, 130.0f);
+                [containnerView layoutIfNeeded];
+            }completion:^(BOOL finished) {
+                
+                tagetView.hidden = NO;
+                //  等动画结束的时候,要告诉系统动画已经结束
+                [transitionContext completeTransition:YES];
+            }];
+//             tagetView.hidden = NO;
+//            //  等动画结束的时候,要告诉系统动画已经结束
+//            [transitionContext completeTransition:YES];
         }];
     }
 }

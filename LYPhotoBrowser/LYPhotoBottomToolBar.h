@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LYPhotoBottomToolBar : UIView
+#import "LYPhotoBrowserViewController.h"
 
-- (void)saveButtonAddTarget:(id _Nonnull )target action:(nonnull SEL)action forControlEvents:(UIControlEvents)controlEvents;
-
-- (void)setCurrentIndex:(NSInteger)currentIndex totalItemsCount:(NSInteger)totalCount;
+@interface LYPhotoBottomToolBar : UIView <LYPhotoBottomToolBarProtocol>
 
 @end

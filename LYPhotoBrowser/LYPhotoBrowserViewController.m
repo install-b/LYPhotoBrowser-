@@ -50,8 +50,7 @@
 @property(nonatomic,strong) LYPhotoAminator * animator;
 /** 浏览视图(self.view) */
 @property(nonatomic,weak) LYPhotoBrowserView * photoBrowserView;
-/** bottom bar */
-@property (nonatomic,weak) LYPhotoBottomToolBar * bottomToolBar;
+
 @end
 
 @implementation LYPhotoBrowserViewController
@@ -88,11 +87,13 @@
     [self setUpsubView];
 }
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     // 隐藏状态栏
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     // 隐藏状态栏
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
@@ -113,6 +114,9 @@
 #pragma mark - clcik events
 // 保存当前图片
 - (void)saveCurrentIamge:(id)sender {
+    [self saveCurrentIamge];
+}
+- (void)saveCurrentIamge {
     // 获取图片
     UIImage *image = [self.photoBrowserView currentImageView].image;
     // 不需要保存
@@ -131,10 +135,9 @@
         }
     }];
 }
-
 #pragma mark - custom modal Anima
 // modal 处理
-- (void)presentedWithView:(UIImageView *)imageView imageIndex:(NSInteger)imageIndex{
+- (void)presentedWithView:(UIImageView *)imageView imageIndex:(NSInteger)imageIndex viewController:(UIViewController *)vc {
     //容错处理
     if (![imageView isKindOfClass:[UIImageView class]]) {
         return;
@@ -148,8 +151,14 @@
     [self view];
     [self.bottomToolBar setCurrentIndex:imageIndex totalItemsCount:self.dataSource.count];
     
+    if (vc.view.window == nil) {
+        vc = [UIViewController rootVisibaleViewController];
+    }
     //modal 浏览器
-    [[UIViewController rootVisibaleViewController] presentViewController:self animated:YES completion:nil];
+    [vc presentViewController:self animated:YES completion:nil];
+}
+- (void)presentedWithView:(UIImageView *)imageView imageIndex:(NSInteger)imageIndex{
+    [self presentedWithView:imageView imageIndex:imageIndex viewController:nil];
 }
 #pragma mark - setter
 - (void)setHiddenBottomToolBar:(BOOL)hiddenBottomToolBar {
@@ -184,6 +193,10 @@
         self.startImageView = nil;
         _finishedLoadImageView = NO;
     }
+    [self didLoadImageAtIndex:startIndex];
+}
+- (void)didLoadImageAtIndex:(NSInteger)index {
+    
 }
 
 // 即将展示的视图索引
