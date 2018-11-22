@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "LYPhotoBrowser-"
-  s.version      = "0.0.7"
+  s.version      = "0.1.0"
   s.summary      = "an ios photo browser tool"
 
   s.description  = "a photo browser tool , use this you can scroll it infinitly"
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
 
-  s.dependency "SGInfiniteView", "~> 0.2.1"
+  s.dependency "SGInfiniteView", "~> 0.2.2"
   s.dependency "SDWebImage", "~> 4.3.3"
   s.dependency "Masonry", "~> 1.1.0"
   
